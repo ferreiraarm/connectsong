@@ -9,13 +9,22 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "review")
 public class Review {
     @Id
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
@@ -26,12 +35,12 @@ public class Review {
     private Date comment;
 
     @Basic(optional = false)
-    @OneToMany(mappedBy = "authenticator")
+    @ManyToOne
     @JoinColumn(name = "user", referencedColumnName = "id", nullable = false)
     private Authenticator authenticator;
 
     @Basic(optional = false)
-    @OneToMany(mappedBy = "album")
+    @ManyToOne
     @JoinColumn(name = "album_id", referencedColumnName = "id", nullable = false)
     private Album album;
 }

@@ -10,9 +10,18 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "album")
 public class Album {
@@ -30,92 +39,28 @@ public class Album {
     private Date releaseDate;
 
     @Basic(optional = false)
-    @OneToMany(mappedBy = "tracks")
-    @JoinColumn(name = "track_id", referencedColumnName = "id", nullable = false)
+    @OneToMany(mappedBy = "album")
     private ArrayList<Track> tracks;
 
     @Basic(optional = false)
-    @OneToMany(mappedBy = "artists")
-    @JoinColumn(name = "artists_id", referencedColumnName = "id", nullable = false)
-    private ArrayList<String> artists;
+    @OneToMany(mappedBy = "album")
+    private ArrayList<Artist> artists;
 
     @Basic(optional = false)
-    @OneToMany(mappedBy = "genres")
-    @JoinColumn(name = "genres_id", referencedColumnName = "id", nullable = false)
-    private ArrayList<String> genres;
+    @OneToMany(mappedBy = "album")
+    private ArrayList<Genre> genres;
+
+    @OneToMany(mappedBy = "album")
+    private ArrayList<Review> reviews;
+
+    @ManyToOne
+    @JoinColumn(name = "historic_id", referencedColumnName = "id", nullable = false)
+    private Roulette historic;
+
+    @ManyToOne
+    @JoinColumn(name = "roulette_id", referencedColumnName = "id", nullable = false)
+    private Roulette roulette;
 
     @Column(name = "popularity")
     private int popularity;
-
-    public ArrayList<String> getArtists() {
-        return artists;
-    }
-
-    public ArrayList<String> getGenres() {
-        return genres;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public int getPopularity() {
-        return popularity;
-    }
-
-    public Date getReleaseDate() {
-        return releaseDate;
-    }
-
-    public int getTotalTracks() {
-        return totalTracks;
-    }
-
-    public ArrayList<Track> getTracks() {
-        return tracks;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setArtists(ArrayList<String> artists) {
-        this.artists = artists;
-    }
-
-    public void setGenres(ArrayList<String> genres) {
-        this.genres = genres;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setPopularity(int popularity) {
-        this.popularity = popularity;
-    }
-
-    public void setReleaseDate(Date releaseDate) {
-        this.releaseDate = releaseDate;
-    }
-
-    public void setTotalTracks(int totalTracks) {
-        this.totalTracks = totalTracks;
-    }
-
-    public void setTracks(ArrayList<Track> tracks) {
-        this.tracks = tracks;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
 }

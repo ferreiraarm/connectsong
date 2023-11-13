@@ -9,45 +9,34 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "users")
 public class User {
-
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
+    @Column(name = "name")
     private String name;
+
+    @Column(name = "phone_number")
     private String phoneNumber;
 
+    @OneToOne(mappedBy = "user")
+    private Authenticator authenticator;
+
     @Basic(optional = false)
-    @OneToOne(mappedBy = "user_address")
+    @OneToOne
     @JoinColumn(name = "user_address_id", referencedColumnName = "id", nullable = false)
     private UserAddress userAddress;
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public UserAddress getUserAddress() {
-        return userAddress;
-    }
-
-    public void setUserAddress(UserAddress userAddress) {
-        this.userAddress = userAddress;
-    }
 }
