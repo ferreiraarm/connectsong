@@ -15,4 +15,9 @@ public class UserController {
         return "varios usuarios";
     }
 
+    @GetMapping("/api/users/test")
+    String getUsersTest() {
+        return "testando o hot swapping";
+    }
+
 }
