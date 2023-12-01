@@ -37,7 +37,7 @@ public class Review {
     @Basic(optional = false)
     @ManyToOne
     @JoinColumn(name = "user", referencedColumnName = "id", nullable = false)
-    private Authenticator authenticator;
+    private User user;
 
     @Basic(optional = false)
     @ManyToOne

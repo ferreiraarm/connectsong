@@ -14,6 +14,12 @@
 	<name>ConnectSong</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
+		<flyway.user>root</flyway.user>
+		<flyway.password>SuperSafePassword</flyway.password>
+		<flyway.url>jdbc:mysql://localhost:3306/connectsong?serverTimezone=UTC</flyway.url>
+		<flyway.driver>com.mysql.cj.jdbc.Driver</flyway.driver>
+		<flyway.schemas>connectsong</flyway.schemas>
+		<flyway.locations>classpath:db/migration</flyway.locations>
 		<java.version>17</java.version>
 	</properties>
 	<dependencies>
@@ -22,6 +28,37 @@
 			<groupId>org.springdoc</groupId>
 			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
 			<version>2.2.0</version>
+		</dependency>
+			
+		<dependency>
+			<groupId>org.flywaydb</groupId>
+			<artifactId>flyway-core</artifactId>
+			<version>9.16.3</version>
+		</dependency>
+
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt-api</artifactId>
+			<version>0.11.5</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-validation</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt-impl</artifactId>
+			<version>0.11.5</version>
+			<scope>runtime</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt-jackson</artifactId>
+			<version>0.11.5</version>
+			<scope>runtime</scope>
 		</dependency>
 
 
@@ -38,6 +75,12 @@
 			<version>1.4.200</version>
 			<scope>test</scope>
 		</dependency>
+
+		<dependency>
+			<groupId>org.flywaydb</groupId>
+			<artifactId>flyway-mysql</artifactId>
+		</dependency>
+
 
 		<dependency>
 			<groupId>mysql</groupId>
@@ -87,16 +130,7 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
-			<plugin>
-				<groupId>com.spotify</groupId>
-				<artifactId>dockerfile-maven-plugin</artifactId>
-				<version>1.4.8</version>
-				<configuration>
-					<repository>myorg/${project.artifactId}</repository>
-				</configuration>
-			</plugin>
 		</plugins>
-		<finalName>spring_rest_docker</finalName>
 	</build>
 
 </project>

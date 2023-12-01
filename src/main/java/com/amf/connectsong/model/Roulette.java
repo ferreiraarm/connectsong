@@ -8,7 +8,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
@@ -30,7 +29,7 @@ public class Roulette {
     private int id;
 
     @OneToOne(mappedBy = "roulette")
-    private Authenticator authenticator;
+    private User user;
 
     @Basic(optional = false)
     @OneToMany(mappedBy = "roulette")
