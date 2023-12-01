@@ -1,17 +1,18 @@
 package com.amf.connectsong.model;
 
-import java.util.ArrayList;
-
-import org.hibernate.annotations.ManyToAny;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "roles")
 public class Role {
@@ -21,10 +22,12 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "name")
-    private String name;
+    private ERole name;
 
-    @OneToMany(mappedBy = "role")
-    private ArrayList<User> users;
+    public ERole getName() {
+        return name;
+    }
 
 }

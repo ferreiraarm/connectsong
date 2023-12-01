@@ -1,15 +1,19 @@
 package com.amf.connectsong.model;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
@@ -58,9 +62,9 @@ public class User {
     @JoinColumn(name = "roulette_id", referencedColumnName = "id")
     private Roulette roulette;
 
-    @ManyToOne
-    @JoinColumn(name = "role_id", referencedColumnName = "id", nullable = false)
-    private Role role;
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false), inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id", nullable = false))
+    private Set<Role> roles = new HashSet<>();
 
     @Basic(optional = false)
     @OneToOne
