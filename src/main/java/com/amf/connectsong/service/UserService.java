@@ -11,7 +11,7 @@ public class UserService {
     }
 
     public void addUser(User newUser) {
-        userRepository.findByName(newUser.getName());
+        userRepository.findByUsername(newUser.getUsername());
         userRepository.save(newUser);
     }
 
