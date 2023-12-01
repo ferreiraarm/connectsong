@@ -30,9 +30,11 @@ import lombok.Setter;
 @Table(name = "users")
 public class User {
 
-    public User(String name, String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public User(String name, String username, String email, String password) {
+        this.username = username;
+        this.email = email;
         this.name = name;
+        this.password = password;
     }
 
     @Id
@@ -40,18 +42,22 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
+    @Basic(optional = false)
     @Column(name = "name")
     private String name;
 
+    @Basic(optional = false)
     @Column(name = "username")
     private String username;
 
+    @Basic(optional = false)
     @Column(name = "email")
     private String email;
 
     @Column(name = "phone_number")
     private String phoneNumber;
 
+    @Basic(optional = false)
     @Column(name = "password")
     private String password;
 
@@ -62,12 +68,17 @@ public class User {
     @JoinColumn(name = "roulette_id", referencedColumnName = "id")
     private Roulette roulette;
 
+    @Basic(optional = false)
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false), inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id", nullable = false))
     private Set<Role> roles = new HashSet<>();
 
-    @Basic(optional = false)
+    @Basic(optional = true)
     @OneToOne
     @JoinColumn(name = "user_address_id", referencedColumnName = "id", nullable = false)
     private UserAddress userAddress;
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
 }
