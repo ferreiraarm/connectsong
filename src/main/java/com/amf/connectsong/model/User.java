@@ -62,7 +62,7 @@ public class User {
     private String password;
 
     @OneToMany(mappedBy = "user")
-    private ArrayList<Review> reviews;
+    private Set<Review> reviews;
 
     @OneToOne
     @JoinColumn(name = "roulette_id", referencedColumnName = "id")
