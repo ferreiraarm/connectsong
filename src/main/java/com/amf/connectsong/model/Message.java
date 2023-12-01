@@ -10,8 +10,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -37,12 +35,12 @@ public class Message {
     private Date postedTime;
 
     @Basic(optional = false)
-    @ManyToOne(targetEntity = Authenticator.class)
-    @JoinColumn(name = "authenticator_sender_id", referencedColumnName = "id", nullable = false)
-    private Authenticator sender;
+    @ManyToOne(targetEntity = User.class)
+    @JoinColumn(name = "user_sender_id", referencedColumnName = "id", nullable = false)
+    private User sender;
 
     @Basic(optional = false)
-    @ManyToOne(targetEntity = Authenticator.class)
-    @JoinColumn(name = "authenticator_receiver_id", referencedColumnName = "id", nullable = false)
-    private Authenticator receiver;
+    @ManyToOne(targetEntity = User.class)
+    @JoinColumn(name = "user_receiver_id", referencedColumnName = "id", nullable = false)
+    private User receiver;
 }
