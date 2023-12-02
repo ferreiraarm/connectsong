@@ -35,11 +35,19 @@ public class AuthController {
             @ApiResponse(responseCode = "500", description = "Erro ao realizar o upload de arquivo"),
     })
     @PostMapping("")
-    String login(@Valid @RequestBody LoginDTO loginRequest) {
+    public ResponseEntity<?> login(@Valid @RequestBody LoginDTO loginRequest) {
         try {
             return authService.login(loginRequest);
         } catch (Exception e) {
-            return "error";
+            if (e.getMessage() == "USER_NOT_FOUND") {
+                return ResponseEntity.status(404).body("Error: User not found!");
+            }
+
+            if (e.getMessage() == "INVALID_PASSWORD") {
+                return ResponseEntity.status(403).body("Invalid credentials!");
+            }
+
+            return ResponseEntity.status(403).body(e.getMessage());
         }
     }
 
