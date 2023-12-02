@@ -32,4 +32,8 @@ public class Genre {
     @Column(name = "name")
     private String name;
 
+    public Genre(String name) {
+        this.name = name;
+    }
+
 }

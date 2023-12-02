@@ -1,6 +1,5 @@
 package com.amf.connectsong.model;
 
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -25,17 +24,19 @@ public class Artist {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
-  
     private int id;
 
     @ManyToOne
     @JoinColumn(name = "album_id", referencedColumnName = "id", nullable = false)
-    
+
     private Album album;
     /**
      * Name of the artist
      */
     @Column(name = "name")
-   
     private String name;
+
+    public Artist(String name) {
+        this.name = name;
+    }
 }

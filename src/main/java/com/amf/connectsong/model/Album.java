@@ -1,7 +1,6 @@
 package com.amf.connectsong.model;
 
-import java.util.ArrayList;
-import java.util.Date;
+import java.util.Set;
 
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
@@ -34,24 +33,24 @@ public class Album {
     @Column(name = "url")
     private String url;
     @Column(name = "total_tracks")
-    private int totalTracks;
+    private Integer totalTracks;
     @Column(name = "release_date")
-    private Date releaseDate;
+    private String releaseDate;
 
     @Basic(optional = false)
     @OneToMany(mappedBy = "album")
-    private ArrayList<Track> tracks;
+    private Set<Track> tracks;
 
     @Basic(optional = false)
     @OneToMany(mappedBy = "album")
-    private ArrayList<Artist> artists;
+    private Set<Artist> artists;
 
     @Basic(optional = false)
     @OneToMany(mappedBy = "album")
-    private ArrayList<Genre> genres;
+    private Set<Genre> genres;
 
     @OneToMany(mappedBy = "album")
-    private ArrayList<Review> reviews;
+    private Set<Review> reviews;
 
     @ManyToOne
     @JoinColumn(name = "historic_id", referencedColumnName = "id", nullable = false)
@@ -63,4 +62,12 @@ public class Album {
 
     @Column(name = "popularity")
     private int popularity;
+
+    public Album(String name, String url, Integer totalTracks, String releaseDate) {
+        this.name = name;
+        this.url = url;
+        this.totalTracks = totalTracks;
+        this.releaseDate = releaseDate;
+    }
+
 }

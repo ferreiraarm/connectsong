@@ -37,10 +37,16 @@ public class Track {
      * Duration in miliseconds
      */
     @Column(name = "duration")
-    private int duration;
+    private Integer duration;
     /**
      * Link to the track
      */
     @Column(name = "url")
     private String url;
+
+    public Track(String name, String url, Integer duration) {
+        this.name = name;
+        this.url = url;
+        this.duration = duration;
+    }
 }

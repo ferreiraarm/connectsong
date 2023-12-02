@@ -1,6 +1,6 @@
 package com.amf.connectsong.model;
 
-import java.util.ArrayList;
+import java.util.Set;
 
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
@@ -33,9 +33,14 @@ public class Roulette {
 
     @Basic(optional = false)
     @OneToMany(mappedBy = "roulette")
-    private ArrayList<Album> albums;
+    private Set<Album> albums;
 
-    @Basic(optional = false)
+    @Basic(optional = true)
     @OneToMany(mappedBy = "historic")
-    private ArrayList<Album> historic;
+    private Set<Album> historic;
+
+    public Roulette(User user, Set<Album> albums) {
+        this.user = user;
+        this.albums = albums;
+    }
 }
