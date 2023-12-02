@@ -44,8 +44,9 @@ public class Track {
     @Column(name = "url")
     private String url;
 
-    public Track(String name, String url, Integer duration) {
+    public Track(String name, Album album, String url, Integer duration) {
         this.name = name;
+        this.album = album;
         this.url = url;
         this.duration = duration;
     }

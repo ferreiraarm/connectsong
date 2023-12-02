@@ -36,7 +36,8 @@ public class Artist {
     @Column(name = "name")
     private String name;
 
-    public Artist(String name) {
+    public Artist(String name, Album album) {
         this.name = name;
+        this.album = album;
     }
 }

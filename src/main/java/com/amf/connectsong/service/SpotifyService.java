@@ -60,7 +60,8 @@ public class SpotifyService {
                 throw new RuntimeException("USER_NOT_FOUND");
             }
 
-            logger.info("Total: " + Array.getLength(savedAlbums));
+            Roulette roulette = new Roulette();
+
             Set<Album> albums = new HashSet<Album>();
 
             for (SavedAlbum savedAlbum : savedAlbums) {
@@ -68,12 +69,14 @@ public class SpotifyService {
                         savedAlbum.getAlbum().getName(),
                         savedAlbum.getAlbum().getHref(),
                         savedAlbum.getAlbum().getTracks().getTotal(),
-                        savedAlbum.getAlbum().getReleaseDate());
+                        savedAlbum.getAlbum().getReleaseDate(),
+                        roulette);
 
                 Set<Track> tracks = new HashSet<Track>();
                 for (TrackSimplified albumTrack : savedAlbum.getAlbum().getTracks().getItems()) {
                     Track track = new Track(
                             albumTrack.getName(),
+                            album,
                             albumTrack.getHref(),
                             albumTrack.getDurationMs());
                     tracks.add(track);
@@ -84,7 +87,8 @@ public class SpotifyService {
                 Set<Artist> artists = new HashSet<Artist>();
                 for (ArtistSimplified albumArtist : savedAlbum.getAlbum().getArtists()) {
                     Artist artist = new Artist(
-                            albumArtist.getName());
+                            albumArtist.getName(),
+                            album);
                     artists.add(artist);
                 }
 
@@ -93,7 +97,6 @@ public class SpotifyService {
                 albums.add(album);
             }
 
-            Roulette roulette = new Roulette();
             roulette.setAlbums(albums);
             roulette.setUser(currentUser.get());
 

@@ -50,21 +50,22 @@ public class Album {
     private Set<Review> reviews;
 
     @ManyToOne
-    @JoinColumn(name = "historic_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "historic_id", referencedColumnName = "id", nullable = true)
     private Roulette historic;
 
     @ManyToOne
-    @JoinColumn(name = "roulette_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "roulette_id", referencedColumnName = "id", nullable = true)
     private Roulette roulette;
 
     @Column(name = "popularity")
     private int popularity;
 
-    public Album(String name, String url, Integer totalTracks, String releaseDate) {
+    public Album(String name, String url, Integer totalTracks, String releaseDate, Roulette roulette) {
         this.name = name;
         this.url = url;
         this.totalTracks = totalTracks;
         this.releaseDate = releaseDate;
+        this.roulette = roulette;
     }
 
 }
