@@ -1,6 +1,5 @@
 package com.amf.connectsong.config.jwt;
 
-import java.security.Key;
 import java.util.Date;
 
 import org.slf4j.Logger;
@@ -16,8 +15,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.UnsupportedJwtException;
-import io.jsonwebtoken.io.Decoders;
-import io.jsonwebtoken.security.Keys;
+import io.jsonwebtoken.impl.TextCodec;
 
 @Component
 public class JwtUtils {
@@ -37,12 +35,13 @@ public class JwtUtils {
                 .setSubject((userPrincipal.getUsername()))
                 .setIssuedAt(new Date())
                 .setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
-                .signWith(key(), SignatureAlgorithm.HS256)
+                .signWith(SignatureAlgorithm.HS256, key())
                 .compact();
     }
 
-    private Key key() {
-        return Keys.hmacShaKeyFor(Decoders.BASE64.decode(jwtSecret));
+    private String key() {
+        String secret = jwtSecret.replace(" ", "");
+        return TextCodec.BASE64.encode(secret);
     }
 
     public String getUserNameFromJwtToken(String token) {
