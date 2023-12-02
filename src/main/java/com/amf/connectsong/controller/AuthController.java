@@ -20,20 +20,22 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/auth")
-@Tag(name = "ConnectSong")
+@Tag(name = "ConnectSong Autenticação Controller")
 public class AuthController {
     @Autowired
    private  AuthService authService;
 
-    AuthController() {
-    }
 
-    @Operation(summary="Realiza Operações de validação de erro login", method="POST")
+    @Operation(summary="Realiza operações de login", method="POST")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Upload de arquivo realizado com sucesso"),
             @ApiResponse(responseCode = "422", description = "Dados de requisição inválida"),
             @ApiResponse(responseCode = "400", description = "Parametros inválidos"),
-            @ApiResponse(responseCode = "500", description = "Erro ao realizar o upload de arquivo"),
+            @ApiResponse(responseCode = "403", description = " falha de arquivo ou permissão de acesso"),
+            @ApiResponse(responseCode = "404", description = "Not found"),
+            @ApiResponse(responseCode = "409", description = "Conflito na solicitação"),
+            @ApiResponse(responseCode = "401", description = "Erro de autenticação"),
+            @ApiResponse(responseCode = "500", description = "Erro no servidor"),
     })
     @PostMapping("")
     public ResponseEntity<?> login(@Valid @RequestBody LoginDTO loginRequest) {
@@ -54,12 +56,17 @@ public class AuthController {
 
 
     
-    @Operation(summary="Realiza Operações Para o login", method="POST")
+    @Operation(summary="Cria usuário", method="POST")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Upload de arquivo realizado com sucesso"),
             @ApiResponse(responseCode = "422", description = "Dados de requisição inválida"),
             @ApiResponse(responseCode = "400", description = "Parametros inválidos"),
-            @ApiResponse(responseCode = "500", description = "Erro ao realizar o upload de arquivo"),
+            @ApiResponse(responseCode = "401", description = "Erro de autenticação"),
+            @ApiResponse(responseCode = "403", description = " falha de arquivo ou permissão de acesso"),
+            @ApiResponse(responseCode = "404", description = "Not found"),
+            @ApiResponse(responseCode = "409", description = "Conflito na solicitação"),
+            @ApiResponse(responseCode = "500", description = "Erro no servidor"),
+
     })
     @PostMapping("/user")
     public ResponseEntity<?> signUp(@Valid @RequestBody SignupDTO singUpRequest) {
