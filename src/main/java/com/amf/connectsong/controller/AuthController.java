@@ -1,6 +1,7 @@
 package com.amf.connectsong.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -44,12 +45,12 @@ public class AuthController {
         try {
             return authService.signUp(singUpRequest);
         } catch (Exception e) {
-            if (e.getMessage() == "USERNAME_ALREADY_TAKEN") {
-                return ResponseEntity.status(409).body("Error: Username is already taken!");
+            if (e.getMessage() == "EMAIL_ALREADY_TAKEN") {
+                return new ResponseEntity<>("Error: Email is already taken!", HttpStatus.CONFLICT);
             }
 
-            if (e.getMessage() == "EMAIL_ALREADY_TAKEN") {
-                return ResponseEntity.status(409).body("Error: Email is already taken!");
+            if (e.getMessage() == "USERNAME_ALREADY_TAKEN") {
+                return ResponseEntity.status(409).body("Error: Username is already taken!");
             }
 
             if (e.getMessage() == "ROLE_NOT_FOUND") {
