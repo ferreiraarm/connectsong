@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 import com.amf.connectsong.config.jwt.JwtUtils;
 import com.amf.connectsong.model.Album;
 import com.amf.connectsong.model.Artist;
-import com.amf.connectsong.model.Genre;
 import com.amf.connectsong.model.Roulette;
 import com.amf.connectsong.model.Track;
 import com.amf.connectsong.model.User;
@@ -90,15 +89,6 @@ public class SpotifyService {
                 }
 
                 album.setArtists(artists);
-
-                Set<Genre> genres = new HashSet<Genre>();
-                for (String albumGenre : savedAlbum.getAlbum().getGenres()) {
-                    Genre genre = new Genre(
-                            albumGenre);
-                    genres.add(genre);
-                }
-
-                album.setGenres(genres);
 
                 albums.add(album);
             }

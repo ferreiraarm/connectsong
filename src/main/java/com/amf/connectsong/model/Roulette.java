@@ -3,6 +3,7 @@ package com.amf.connectsong.model;
 import java.util.Set;
 
 import jakarta.persistence.Basic;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -28,15 +29,15 @@ public class Roulette {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    @OneToOne(mappedBy = "roulette")
+    @OneToOne(cascade = CascadeType.ALL)
     private User user;
 
     @Basic(optional = false)
-    @OneToMany(mappedBy = "roulette")
+    @OneToMany(mappedBy = "roulette", cascade = CascadeType.ALL)
     private Set<Album> albums;
 
     @Basic(optional = true)
-    @OneToMany(mappedBy = "historic")
+    @OneToMany(mappedBy = "historic", cascade = CascadeType.ALL)
     private Set<Album> historic;
 
     public Roulette(User user, Set<Album> albums) {
