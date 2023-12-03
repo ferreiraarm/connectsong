@@ -2,7 +2,9 @@ package com.amf.connectsong.utils;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
 
+@Component
 public class ExceptionHandler {
     public ResponseEntity<?> returnException(Exception e) {
         switch (e.getMessage()) {
@@ -26,6 +28,9 @@ public class ExceptionHandler {
 
             case "ROULETTE_NOT_FOUND":
                 return new ResponseEntity<>("Roulette not found!", HttpStatus.NOT_FOUND);
+
+            case "NOT_FOUND_ALBUM":
+                return new ResponseEntity<>("Album not found!", HttpStatus.NOT_FOUND);
 
             default:
                 break;
