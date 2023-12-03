@@ -17,8 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.amf.connectsong.model.ESpotiftKeys;
 import com.amf.connectsong.service.SpotifyService;
 
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import se.michaelthelin.spotify.SpotifyApi;
 import se.michaelthelin.spotify.SpotifyHttpManager;
 import se.michaelthelin.spotify.model_objects.credentials.AuthorizationCodeCredentials;
@@ -54,8 +52,7 @@ public class SpotifyController {
 
     @GetMapping("/callback")
     public ResponseEntity<?> callback(@RequestParam("code") String userCode,
-            @RequestHeader("Authorization") String token, HttpServletRequest request,
-            HttpServletResponse response) {
+            @RequestHeader("Authorization") String token) {
 
         this.code = userCode;
 
