@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.amf.connectsong.dto.AlbumDTO;
 import com.amf.connectsong.dto.ArtistDTO;
+import com.amf.connectsong.dto.ReviewDTO;
 import com.amf.connectsong.service.AlbumService;
 import com.amf.connectsong.utils.ExceptionHandler;
 
@@ -87,7 +88,7 @@ public class AlbumController implements Serializable {
      @Operation(summary = "Busca de album id com certo reviews", method = "GET")
      @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Busca realizada com sucesso", content = {
-                    @Content(mediaType = "application/json", schema = @Schema(implementation = AlbumDTO.class)) }),
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = ReviewDTO.class)) }),
             @ApiResponse(responseCode = "404", description = "Album ou token ou usuário ou review não encontrado!"),
             @ApiResponse(responseCode = "500", description = "Erro ao realizar busca dos dados"),
     })

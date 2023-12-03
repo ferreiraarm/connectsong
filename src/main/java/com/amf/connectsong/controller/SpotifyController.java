@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.amf.connectsong.dto.ArtistDTO;
+
 import com.amf.connectsong.model.ESpotiftKeys;
 import com.amf.connectsong.service.SpotifyService;
 
