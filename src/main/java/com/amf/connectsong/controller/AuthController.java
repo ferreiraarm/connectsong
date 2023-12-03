@@ -14,6 +14,7 @@ import com.amf.connectsong.config.jwt.JwtResponse;
 import com.amf.connectsong.dto.LoginDTO;
 import com.amf.connectsong.dto.SignupDTO;
 import com.amf.connectsong.service.AuthService;
+import com.amf.connectsong.utils.ExceptionHandler;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -82,19 +83,9 @@ public class AuthController implements Serializable {
         try {
             return authService.signUp(singUpRequest);
         } catch (Exception e) {
-            if (e.getMessage() == "EMAIL_ALREADY_TAKEN") {
-                return new ResponseEntity<>("Error: Email is already taken!", HttpStatus.CONFLICT);
-            }
+            ExceptionHandler exceptionHandler = new ExceptionHandler();
 
-            if (e.getMessage() == "USERNAME_ALREADY_TAKEN") {
-                return ResponseEntity.status(409).body("Error: Username is already taken!");
-            }
-
-            if (e.getMessage() == "ROLE_NOT_FOUND") {
-                return ResponseEntity.status(404).body("Error: Role not found!");
-            }
-
-            return ResponseEntity.status(403).body(e.getMessage());
+            return exceptionHandler.returnException(e);
         }
     }
 
