@@ -25,7 +25,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Entity
 @Table(name = "message")
-public class Message implements Serializable{
+public class Message implements Serializable {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -47,4 +47,11 @@ public class Message implements Serializable{
     @ManyToOne(targetEntity = User.class)
     @JoinColumn(name = "user_receiver_id", referencedColumnName = "id", nullable = false)
     private User receiver;
+
+    public Message(String message, User receiver, User sender) {
+        this.message = message;
+        this.receiver = receiver;
+        this.sender = sender;
+    }
+
 }

@@ -50,7 +50,6 @@ public class SpotifyController implements Serializable {
      @Operation(summary = "Login do Spotify", method = "POST")
      @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Sucesso"),
-                   /*verificar */
             @ApiResponse(responseCode = "404", description = "Não cadastrado!"),
             @ApiResponse(responseCode = "401", description = "Não autorizado!"),
             @ApiResponse(responseCode = "500", description = "Erro no servidor"),
@@ -71,7 +70,6 @@ public class SpotifyController implements Serializable {
      @Operation(summary = "Callback do Spotify, executa após login", method = "POST")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Albuns salvos com sucesso"),
-                   /*verificar */
             @ApiResponse(responseCode = "404", description = "Não encontrado!"),
             @ApiResponse(responseCode = "500", description = "Erro no servidor"),
     })
