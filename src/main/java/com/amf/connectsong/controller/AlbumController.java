@@ -88,7 +88,7 @@ public class AlbumController implements Serializable {
      @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Busca realizada com sucesso", content = {
                     @Content(mediaType = "application/json", schema = @Schema(implementation = AlbumDTO.class)) }),
-            @ApiResponse(responseCode = "404", description = "Album ou review não encontrado!"),
+            @ApiResponse(responseCode = "404", description = "Album ou token ou usuário ou review não encontrado!"),
             @ApiResponse(responseCode = "500", description = "Erro ao realizar busca dos dados"),
     })
     @GetMapping("{id}/reviews")
