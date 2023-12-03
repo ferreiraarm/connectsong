@@ -3,6 +3,7 @@ package com.amf.connectsong.dto;
 import java.io.Serializable;
 
 import com.amf.connectsong.model.Album;
+import org.springframework.hateoas.RepresentationModel;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,7 +14,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class AlbumDTO implements Serializable {
+public class AlbumDTO extends RepresentationModel<AlbumDTO> implements Serializable {
     private int id;
     private String name;
     private String url;

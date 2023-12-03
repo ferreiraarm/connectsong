@@ -1,11 +1,10 @@
 package com.amf.connectsong.service;
 
-import java.util.ArrayList;
 import java.util.Optional;
 import java.util.Random;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.Link;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -53,7 +52,18 @@ public class RouletteService {
 
         Album selectAlbum = getRandomAlbum(rouletteAlbums);
 
-        return ResponseEntity.ok(new AlbumDTO(selectAlbum));
+        AlbumDTO albumDTO = new AlbumDTO(selectAlbum);
+        Link selfLink = Link.of("http://localhost:8080/api/album/" + selectAlbum.getId());
+        albumDTO.add(selfLink);
+
+        Link artistsLink = Link.of("http://localhost:8080/api/album/" + selectAlbum.getId() + "/artists")
+                .withRel("artists");
+        Link reviewsLink = Link.of("http://localhost:8080/api/album/" + selectAlbum.getId() + "/reviews")
+                .withRel("reviews");
+        albumDTO.add(artistsLink);
+        albumDTO.add(reviewsLink);
+
+        return ResponseEntity.ok(albumDTO);
     }
 
     private Album getRandomAlbum(Album[] rouletteAlbums) {
