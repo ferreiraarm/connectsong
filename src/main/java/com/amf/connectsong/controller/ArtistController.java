@@ -25,29 +25,17 @@ public class ArtistController implements Serializable{
     private ArtistRepository repArtistObj;
 
     @Operation(summary = "Busca dados de artistas por id", method = "GET")
-
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Busca realizada com sucesso"),
+             /*colocar aqui o dto */
             @ApiResponse(responseCode = "422", description = "Dados de requisição inválida"),
             @ApiResponse(responseCode = "400", description = "Parametros inválidos"),
+            @ApiResponse(responseCode = "404", description = "Não encontrado"),
             @ApiResponse(responseCode = "500", description = "Erro ao realizar busca dos dados"),
     })
     @GetMapping("/api/artist/{id}")
     public Artist selecionarArtistPorID(@PathVariable long id) {
         return repArtistObj.findById(id);
-    }
-
-    @Operation(summary = "Busca dados de artistas por nome", method = "GET")
-
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Busca realizada com sucesso"),
-            @ApiResponse(responseCode = "422", description = "Dados de requisição inválida"),
-            @ApiResponse(responseCode = "400", description = "Parametros inválidos"),
-            @ApiResponse(responseCode = "500", description = "Erro ao realizar busca dos dados"),
-    })
-    @GetMapping("/api/artist/{nome}")
-    public Artist selecionarArtistPorNome(@PathVariable String name) {
-        return repArtistObj.findByName(name);
     }
 
 }

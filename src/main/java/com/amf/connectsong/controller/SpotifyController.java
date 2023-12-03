@@ -14,9 +14,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.amf.connectsong.dto.ArtistDTO;
 import com.amf.connectsong.model.ESpotiftKeys;
 import com.amf.connectsong.service.SpotifyService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import se.michaelthelin.spotify.SpotifyApi;
 import se.michaelthelin.spotify.SpotifyHttpManager;
@@ -40,6 +46,15 @@ public class SpotifyController implements Serializable {
             .setRedirectUri(redirectUri)
             .build();
 
+    
+     @Operation(summary = "Login", method = "POST")
+     @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Sucesso"),
+                   /*verificar */
+            @ApiResponse(responseCode = "404", description = "Não cadastrado!"),
+            @ApiResponse(responseCode = "401", description = " não autorizado!"),
+            @ApiResponse(responseCode = "500", description = "Erro no servidor"),
+    })        
     @PostMapping("/login")
     @ResponseBody
     public String login() {
@@ -52,6 +67,14 @@ public class SpotifyController implements Serializable {
         return uri.toString();
     }
 
+
+     @Operation(summary = "Callback", method = "POST")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Sucesso"),
+                   /*verificar */
+            @ApiResponse(responseCode = "404", description = "Não encontrado!"),
+            @ApiResponse(responseCode = "500", description = "Erro no servidor"),
+    })
     @PostMapping("/callback")
     public ResponseEntity<?> callback(@RequestParam("code") String userCode,
             @RequestHeader("Authorization") String token) {

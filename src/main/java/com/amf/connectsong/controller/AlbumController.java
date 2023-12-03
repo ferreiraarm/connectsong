@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.amf.connectsong.dto.AlbumDTO;
+import com.amf.connectsong.dto.ArtistDTO;
 import com.amf.connectsong.service.AlbumService;
 import com.amf.connectsong.utils.ExceptionHandler;
 
@@ -32,12 +33,12 @@ public class AlbumController implements Serializable {
     @Autowired
     private ExceptionHandler exceptionHandler;
 
-    @Operation(summary = "Busca todos os  dados so album ", method = "GET")
+    @Operation(summary = "Busca todos os dados do album ", method = "GET")
 
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Busca realizada com sucesso", content = {
                     @Content(mediaType = "application/json", schema = @Schema(implementation = AlbumDTO.class)) }),
-            @ApiResponse(responseCode = "404", description = "Not found user or token or albums!"),
+            @ApiResponse(responseCode = "404", description = "Usuário ou token ou albuns não encontrados!"),
             @ApiResponse(responseCode = "500", description = "Erro ao realizar busca dos dados"),
     })
     @GetMapping("")
@@ -51,15 +52,14 @@ public class AlbumController implements Serializable {
     }
 
     @Operation(summary = "Busca dados de albuns por id", method = "GET")
-
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Busca realizada com sucesso", content = {
                     @Content(mediaType = "application/json", schema = @Schema(implementation = AlbumDTO.class)) }),
-            @ApiResponse(responseCode = "404", description = "Album not found!"),
+            @ApiResponse(responseCode = "404", description = "Album não encontrado!"),
             @ApiResponse(responseCode = "500", description = "Erro ao realizar busca dos dados"),
     })
     @GetMapping("{id}")
-    public ResponseEntity<?> selecionarAlbumPorId(@PathVariable long id) {
+    public ResponseEntity<?> getAlbumById(@PathVariable long id) {
         try {
             return albumService.getAlbumById(id);
         } catch (Exception e) {
@@ -67,6 +67,14 @@ public class AlbumController implements Serializable {
         }
     }
 
+
+    @Operation(summary = "Busca de album id com certo artista", method = "GET")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Busca realizada com sucesso", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = ArtistDTO.class)) }),
+            @ApiResponse(responseCode = "404", description = "Album ou artista não encontrado!"),
+            @ApiResponse(responseCode = "500", description = "Erro ao realizar busca dos dados"),
+    })
     @GetMapping("{id}/artists")
     public ResponseEntity<?> getArtistsByAlbumId(@PathVariable long id) {
         try {
@@ -76,6 +84,13 @@ public class AlbumController implements Serializable {
         }
     }
 
+     @Operation(summary = "Busca de album id com certo reviews", method = "GET")
+     @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Busca realizada com sucesso", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = AlbumDTO.class)) }),
+            @ApiResponse(responseCode = "404", description = "Album ou review não encontrado!"),
+            @ApiResponse(responseCode = "500", description = "Erro ao realizar busca dos dados"),
+    })
     @GetMapping("{id}/reviews")
     public ResponseEntity<?> getReviewsByAlbumId(@PathVariable long id) {
         try {

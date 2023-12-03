@@ -34,8 +34,10 @@ public class MessageController implements Serializable {
 
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Busca realizada com sucesso"),
+            /*Colocar aqui o dot schema */
             @ApiResponse(responseCode = "422", description = "Dados de requisição inválida"),
             @ApiResponse(responseCode = "400", description = "Parametros inválidos"),
+            @ApiResponse(responseCode = "404", description = "Não encontrado"),
             @ApiResponse(responseCode = "500", description = "Erro ao realizar busca dos dados"),
     })
     @GetMapping("api/message")
@@ -47,8 +49,10 @@ public class MessageController implements Serializable {
 
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Busca realizada com sucesso"),
+            /*Colocar aqui o dto schema */
             @ApiResponse(responseCode = "422", description = "Dados de requisição inválida"),
             @ApiResponse(responseCode = "400", description = "Parametros inválidos"),
+            @ApiResponse(responseCode = "404", description = "Não encontrado"),
             @ApiResponse(responseCode = "500", description = "Erro ao realizar busca dos dados"),
     })
     @GetMapping("api/message/{id}")
@@ -63,11 +67,12 @@ public class MessageController implements Serializable {
     */
 
     @Operation(summary = "deleta mensagens por id", method = "DELETE")
-
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Deletado"),
+            /*Colocar aqui o dot schema */
             @ApiResponse(responseCode = "422", description = "Dados de requisição inválida"),
             @ApiResponse(responseCode = "400", description = "Parametros inválidos"),
+            @ApiResponse(responseCode = "404", description = "Não encontrado"),
             @ApiResponse(responseCode = "500", description = "Erro ao deletar"),
     })
     @DeleteMapping("/api/message/{id}")
