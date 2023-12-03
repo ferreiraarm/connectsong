@@ -10,10 +10,13 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.amf.connectsong.dto.AlbumDTO;
 import com.amf.connectsong.service.AlbumService;
 import com.amf.connectsong.utils.ExceptionHandler;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 
@@ -30,9 +33,9 @@ public class AlbumController implements Serializable {
     @Operation(summary = "Busca todos os  dados so album ", method = "GET")
 
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Busca realizada com sucesso"),
-            @ApiResponse(responseCode = "422", description = "Dados de requisição inválida"),
-            @ApiResponse(responseCode = "400", description = "Parametros inválidos"),
+            @ApiResponse(responseCode = "200", description = "Busca realizada com sucesso", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = AlbumDTO.class)) }),
+            @ApiResponse(responseCode = "404", description = "Not found user or token or albums!"),
             @ApiResponse(responseCode = "500", description = "Erro ao realizar busca dos dados"),
     })
     @GetMapping("")
@@ -48,9 +51,9 @@ public class AlbumController implements Serializable {
     @Operation(summary = "Busca dados de albuns por id", method = "GET")
 
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Busca realizada com sucesso"),
-            @ApiResponse(responseCode = "422", description = "Dados de requisição inválida"),
-            @ApiResponse(responseCode = "400", description = "Parametros inválidos"),
+            @ApiResponse(responseCode = "200", description = "Busca realizada com sucesso", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = AlbumDTO.class)) }),
+            @ApiResponse(responseCode = "404", description = "Album not found!"),
             @ApiResponse(responseCode = "500", description = "Erro ao realizar busca dos dados"),
     })
     @GetMapping("{id}")
