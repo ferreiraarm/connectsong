@@ -18,10 +18,12 @@ import com.amf.connectsong.repository.RouletteRepository;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.Delegate;
 
 @RestController
 @RequestMapping("/api/roulette")
+@Tag(name = "ConnectSong Roulette Controller")
 public class RouletteController implements Serializable {
     
     @Autowired

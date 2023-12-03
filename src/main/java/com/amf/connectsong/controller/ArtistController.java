@@ -14,9 +14,11 @@ import com.amf.connectsong.repository.ArtistRepository;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
 @RequestMapping("/api/artist")
+@Tag(name = "ConnectSong Artist Controller")
 public class ArtistController implements Serializable{
     
     @Autowired

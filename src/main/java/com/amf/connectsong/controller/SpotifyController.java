@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.amf.connectsong.model.ESpotiftKeys;
 import com.amf.connectsong.service.SpotifyService;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import se.michaelthelin.spotify.SpotifyApi;
 import se.michaelthelin.spotify.SpotifyHttpManager;
 import se.michaelthelin.spotify.model_objects.credentials.AuthorizationCodeCredentials;
@@ -26,6 +27,7 @@ import se.michaelthelin.spotify.requests.authorization.authorization_code.Author
 
 @RestController
 @RequestMapping("/api/spotify")
+@Tag(name = "ConnectSong Spotify Controller")
 public class SpotifyController implements Serializable {
     @Autowired
     SpotifyService spotifyService;

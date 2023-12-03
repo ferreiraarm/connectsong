@@ -34,10 +34,10 @@ public class SpotifyService {
     Logger logger = LoggerFactory.getLogger(SpotifyService.class);
 
     @Autowired
-    RouletteRepository rouletteRepository;
+    private RouletteRepository rouletteRepository;
 
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
 
     @Autowired
     JwtUtils jwtUtils;
