@@ -67,4 +67,22 @@ public class AlbumController implements Serializable {
         }
     }
 
+    @GetMapping("{id}/artists")
+    public ResponseEntity<?> getArtistsByAlbumId(@PathVariable long id) {
+        try {
+            return albumService.getArtistsByAlbumId(id);
+        } catch (Exception e) {
+            return exceptionHandler.returnException(e);
+        }
+    }
+
+    @GetMapping("{id}/reviews")
+    public ResponseEntity<?> getReviewsByAlbumId(@PathVariable long id) {
+        try {
+            return albumService.getReviewsByAlbumId(id);
+        } catch (Exception e) {
+            return exceptionHandler.returnException(e);
+        }
+    }
+
 }

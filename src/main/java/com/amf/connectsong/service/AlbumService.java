@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.amf.connectsong.config.jwt.JwtUtils;
 import com.amf.connectsong.dto.AlbumDTO;
+import com.amf.connectsong.dto.ArtistDTO;
 import com.amf.connectsong.model.Album;
 import com.amf.connectsong.model.User;
 import com.amf.connectsong.repository.AlbumRepository;
@@ -75,7 +76,44 @@ public class AlbumService {
         }
 
         AlbumDTO albumDTO = new AlbumDTO(album);
+
+        Link selfLink = Link.of("http://localhost:8080/api/album/" + album.getId());
+        albumDTO.add(selfLink);
+
+        Link artistsLink = Link.of("http://localhost:8080/api/album/" + album.getId() + "/artists")
+                .withRel("artists");
+        Link reviewsLink = Link.of("http://localhost:8080/api/album/" + album.getId() + "/reviews")
+                .withRel("reviews");
+        albumDTO.add(artistsLink);
+        albumDTO.add(reviewsLink);
+
         return ResponseEntity.ok(albumDTO);
+    }
+
+    public ResponseEntity<?> getArtistsByAlbumId(long id) {
+        Album album = albumRepository.findById(id);
+
+        if (album == null) {
+            throw new RuntimeException("NOT_FOUND_ALBUM");
+        }
+
+        Set<ArtistDTO> artists = new HashSet<ArtistDTO>();
+        album.getArtists().forEach(artistServer -> {
+            ArtistDTO artist = new ArtistDTO(artistServer);
+            artists.add(artist);
+        });
+
+        return ResponseEntity.ok(artists);
+    }
+
+    public ResponseEntity<?> getReviewsByAlbumId(long id) {
+        Album album = albumRepository.findById(id);
+
+        if (album == null) {
+            throw new RuntimeException("NOT_FOUND_ALBUM");
+        }
+
+        return ResponseEntity.ok(album.getReviews());
     }
 
 }
