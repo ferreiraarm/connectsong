@@ -1,6 +1,7 @@
 package com.amf.connectsong.controller;
 
 
+import java.io.Serializable;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 
 @RestController
 @RequestMapping("/api/message")
-public class MessageController {
+public class MessageController implements Serializable {
     
     @Autowired
     private MessageRepository repMessageObj;

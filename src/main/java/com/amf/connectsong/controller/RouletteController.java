@@ -1,6 +1,7 @@
 package com.amf.connectsong.controller;
 
 
+import java.io.Serializable;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,7 @@ import lombok.Delegate;
 
 @RestController
 @RequestMapping("/api/roulette")
-public class RouletteController {
+public class RouletteController implements Serializable {
     
     @Autowired
     private RouletteRepository repRouletteObj;

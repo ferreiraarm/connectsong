@@ -1,5 +1,6 @@
 package com.amf.connectsong.controller;
 
+import java.io.Serializable;
 import java.net.URI;
 
 import org.slf4j.Logger;
@@ -25,7 +26,7 @@ import se.michaelthelin.spotify.requests.authorization.authorization_code.Author
 
 @RestController
 @RequestMapping("/api/spotify")
-public class SpotifyController {
+public class SpotifyController implements Serializable {
     @Autowired
     SpotifyService spotifyService;
 

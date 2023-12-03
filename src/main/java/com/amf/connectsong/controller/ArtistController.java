@@ -3,6 +3,8 @@ package com.amf.connectsong.controller;
 
 
 
+import java.io.Serializable;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,7 +20,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 
 @RestController
 @RequestMapping("/api/artist")
-public class ArtistController {
+public class ArtistController implements Serializable{
     
     @Autowired
     private ArtistRepository repArtistObj;
