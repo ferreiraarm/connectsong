@@ -13,6 +13,7 @@ import com.amf.connectsong.dto.AlbumDTO;
 import com.amf.connectsong.model.Album;
 import com.amf.connectsong.model.Roulette;
 import com.amf.connectsong.model.User;
+import com.amf.connectsong.repository.AlbumRepository;
 import com.amf.connectsong.repository.RouletteRepository;
 import com.amf.connectsong.repository.UserRepository;
 
@@ -21,6 +22,9 @@ public class RouletteService {
 
     @Autowired
     private RouletteRepository rouletteRepository;
+
+    @Autowired
+    private AlbumRepository albumRepository;
 
     @Autowired
     private UserRepository userRepository;
@@ -50,7 +54,20 @@ public class RouletteService {
 
         Album[] rouletteAlbums = roulette.getAlbums().toArray(Album[]::new);
 
-        Album selectAlbum = getRandomAlbum(rouletteAlbums);
+        Album selectAlbum = null;
+
+        Integer count = 0;
+        while (selectAlbum == null || (selectAlbum.getHistoric() != null && count < rouletteAlbums.length)) {
+            selectAlbum = getRandomAlbum(rouletteAlbums);
+            count++;
+        }
+
+        if (count >= rouletteAlbums.length) {
+            for (Album album : rouletteAlbums) {
+                album.setHistoric(null);
+                albumRepository.save(album);
+            }
+        }
 
         AlbumDTO albumDTO = new AlbumDTO(selectAlbum);
         Link selfLink = Link.of("http://localhost:8080/api/album/" + selectAlbum.getId());
@@ -62,6 +79,9 @@ public class RouletteService {
                 .withRel("reviews");
         albumDTO.add(artistsLink);
         albumDTO.add(reviewsLink);
+
+        selectAlbum.setHistoric(roulette);
+        albumRepository.save(selectAlbum);
 
         return ResponseEntity.ok(albumDTO);
     }
