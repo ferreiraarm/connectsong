@@ -1,5 +1,7 @@
 package com.amf.connectsong.controller;
 
+
+import java.io.Serializable;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +19,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 
 @RestController
 @RequestMapping("/api/album")
-public class AlbumController {
+public class AlbumController implements Serializable {
 
     @Autowired
     private AlbumRepository repAlbumObj;

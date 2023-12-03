@@ -1,5 +1,8 @@
 package com.amf.connectsong.controller;
 
+import java.io.Serializable;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,7 +23,7 @@ import se.michaelthelin.spotify.requests.authorization.authorization_code.Author
 
 @RestController
 @RequestMapping("/api/roulette")
-public class RouletteController {
+public class RouletteController implements Serializable {
 
     @Autowired
     private RouletteRepository repRouletteObj;

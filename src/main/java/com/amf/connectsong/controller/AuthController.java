@@ -1,5 +1,7 @@
 package com.amf.connectsong.controller;
 
+import java.io.Serializable;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +25,7 @@ import jakarta.validation.Valid;
 @RestController
 @RequestMapping("/api/auth")
 @Tag(name = "ConnectSong Autenticação Controller")
-public class AuthController {
+public class AuthController implements Serializable {
     @Autowired
     private AuthService authService;
 
