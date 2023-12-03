@@ -1,7 +1,6 @@
 package com.amf.connectsong.service;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -65,15 +64,17 @@ public class SpotifyService {
             Set<Album> albums = new HashSet<Album>();
 
             for (SavedAlbum savedAlbum : savedAlbums) {
+                se.michaelthelin.spotify.model_objects.specification.Album gettedAlbum = savedAlbum.getAlbum();
                 Album album = new Album(
-                        savedAlbum.getAlbum().getName(),
-                        savedAlbum.getAlbum().getHref(),
-                        savedAlbum.getAlbum().getTracks().getTotal(),
-                        savedAlbum.getAlbum().getReleaseDate(),
-                        roulette);
+                        gettedAlbum.getName(),
+                        gettedAlbum.getHref(),
+                        gettedAlbum.getTracks().getTotal(),
+                        gettedAlbum.getReleaseDate(),
+                        roulette,
+                        gettedAlbum.getPopularity());
 
                 Set<Track> tracks = new HashSet<Track>();
-                for (TrackSimplified albumTrack : savedAlbum.getAlbum().getTracks().getItems()) {
+                for (TrackSimplified albumTrack : gettedAlbum.getTracks().getItems()) {
                     Track track = new Track(
                             albumTrack.getName(),
                             album,
@@ -85,7 +86,7 @@ public class SpotifyService {
                 album.setTracks(tracks);
 
                 Set<Artist> artists = new HashSet<Artist>();
-                for (ArtistSimplified albumArtist : savedAlbum.getAlbum().getArtists()) {
+                for (ArtistSimplified albumArtist : gettedAlbum.getArtists()) {
                     Artist artist = new Artist(
                             albumArtist.getName(),
                             album);
