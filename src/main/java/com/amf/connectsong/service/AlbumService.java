@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.amf.connectsong.config.jwt.JwtUtils;
 import com.amf.connectsong.dto.AlbumDTO;
 import com.amf.connectsong.dto.ArtistDTO;
+import com.amf.connectsong.dto.ReviewDTO;
 import com.amf.connectsong.model.Album;
 import com.amf.connectsong.model.User;
 import com.amf.connectsong.repository.AlbumRepository;
@@ -112,6 +113,15 @@ public class AlbumService {
         if (album == null) {
             throw new RuntimeException("NOT_FOUND_ALBUM");
         }
+
+        Set<ReviewDTO> reviews = new HashSet<ReviewDTO>();
+        album.getReviews().forEach(reviewServer -> {
+            ReviewDTO review = new ReviewDTO(reviewServer);
+            Link userLink = Link.of("http://localhost:8080/api/user/profile" + review.getUsername()).withRel("user");
+            review.add(userLink);
+
+            reviews.add(review);
+        });
 
         return ResponseEntity.ok(album.getReviews());
     }
