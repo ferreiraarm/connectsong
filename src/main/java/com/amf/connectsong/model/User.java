@@ -1,10 +1,10 @@
 package com.amf.connectsong.model;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
 import jakarta.persistence.Basic;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -64,7 +64,7 @@ public class User {
     @OneToMany(mappedBy = "user")
     private Set<Review> reviews;
 
-    @OneToOne
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     @JoinColumn(name = "roulette_id", referencedColumnName = "id")
     private Roulette roulette;
 
@@ -74,7 +74,7 @@ public class User {
     private Set<Role> roles = new HashSet<>();
 
     @Basic(optional = true)
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_address_id", referencedColumnName = "id", nullable = false)
     private UserAddress userAddress;
 

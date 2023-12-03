@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.amf.connectsong.config.jwt.JwtResponse;
 import com.amf.connectsong.dto.LoginDTO;
 import com.amf.connectsong.dto.SignupDTO;
 import com.amf.connectsong.service.AuthService;
@@ -16,6 +17,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 
 @RestController
@@ -23,10 +25,9 @@ import jakarta.validation.Valid;
 @Tag(name = "ConnectSong Autenticação Controller")
 public class AuthController {
     @Autowired
-   private  AuthService authService;
+    private AuthService authService;
 
-
-    @Operation(summary="Realiza operações de login", method="POST")
+    @Operation(summary = "Realiza operações de login", method = "POST")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Upload de arquivo realizado com sucesso"),
             @ApiResponse(responseCode = "422", description = "Dados de requisição inválida"),
@@ -38,9 +39,17 @@ public class AuthController {
             @ApiResponse(responseCode = "500", description = "Erro no servidor"),
     })
     @PostMapping("")
-    public ResponseEntity<?> login(@Valid @RequestBody LoginDTO loginRequest) {
+    public ResponseEntity<?> login(@Valid @RequestBody LoginDTO loginRequest, HttpServletResponse response) {
         try {
-            return authService.login(loginRequest);
+            JwtResponse login = authService.login(loginRequest);
+            /**
+             * Testing if the token is being sent in the header
+             */
+            // response.setHeader("Authorization", "Bearer " + login.getAccessToken());
+            // Cookie cookie = new Cookie("Authorization", login.getAccessToken());
+            // response.addCookie(cookie);
+
+            return ResponseEntity.ok(login.getAccessToken());
         } catch (Exception e) {
             if (e.getMessage() == "USER_NOT_FOUND") {
                 return ResponseEntity.status(404).body("Error: User not found!");
@@ -54,9 +63,7 @@ public class AuthController {
         }
     }
 
-
-    
-    @Operation(summary="Cria usuário", method="POST")
+    @Operation(summary = "Cria usuário", method = "POST")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Upload de arquivo realizado com sucesso"),
             @ApiResponse(responseCode = "422", description = "Dados de requisição inválida"),

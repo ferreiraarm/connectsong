@@ -45,7 +45,7 @@ public class AuthService {
     public AuthService() {
     }
 
-    public ResponseEntity<?> login(LoginDTO loginRequest) {
+    public JwtResponse login(LoginDTO loginRequest) {
 
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
@@ -59,19 +59,18 @@ public class AuthService {
                 .map(item -> item.getAuthority())
                 .collect(Collectors.toList());
 
-        return ResponseEntity.ok(
-                new JwtResponse(jwt, userDetails.getId(), userDetails.getUsername(), userDetails.getEmail(), roles));
+        return new JwtResponse(jwt, userDetails.getId(), userDetails.getUsername(), userDetails.getEmail(), roles);
 
     }
 
     public ResponseEntity<?> signUp(SignupDTO singUpRequest) {
 
-        if (userRepository.existsByUsername(singUpRequest.getUsername())) {
-            throw new RuntimeException("USERNAME_ALREADY_TAKEN");
-        }
-
         if (userRepository.existsByEmail(singUpRequest.getEmail())) {
             throw new RuntimeException("EMAIL_ALREADY_TAKEN");
+        }
+
+        if (userRepository.existsByUsername(singUpRequest.getUsername())) {
+            throw new RuntimeException("USERNAME_ALREADY_TAKEN");
         }
 
         User user = new User(

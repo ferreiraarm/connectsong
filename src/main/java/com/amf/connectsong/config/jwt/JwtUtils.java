@@ -40,8 +40,7 @@ public class JwtUtils {
     }
 
     private String key() {
-        String secret = jwtSecret.replace(" ", "");
-        return TextCodec.BASE64.encode(secret);
+        return TextCodec.BASE64.encode(jwtSecret);
     }
 
     public String getUserNameFromJwtToken(String token) {

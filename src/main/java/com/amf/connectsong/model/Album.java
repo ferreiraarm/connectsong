@@ -1,9 +1,9 @@
 package com.amf.connectsong.model;
 
-import java.util.ArrayList;
-import java.util.Date;
+import java.util.Set;
 
 import jakarta.persistence.Basic;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -34,33 +34,38 @@ public class Album {
     @Column(name = "url")
     private String url;
     @Column(name = "total_tracks")
-    private int totalTracks;
+    private Integer totalTracks;
     @Column(name = "release_date")
-    private Date releaseDate;
+    private String releaseDate;
 
     @Basic(optional = false)
-    @OneToMany(mappedBy = "album")
-    private ArrayList<Track> tracks;
+    @OneToMany(mappedBy = "album", cascade = CascadeType.ALL)
+    private Set<Track> tracks;
 
     @Basic(optional = false)
-    @OneToMany(mappedBy = "album")
-    private ArrayList<Artist> artists;
+    @OneToMany(mappedBy = "album", cascade = CascadeType.ALL)
+    private Set<Artist> artists;
 
-    @Basic(optional = false)
-    @OneToMany(mappedBy = "album")
-    private ArrayList<Genre> genres;
-
-    @OneToMany(mappedBy = "album")
-    private ArrayList<Review> reviews;
+    @OneToMany(mappedBy = "album", cascade = CascadeType.ALL)
+    private Set<Review> reviews;
 
     @ManyToOne
-    @JoinColumn(name = "historic_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "historic_id", referencedColumnName = "id", nullable = true)
     private Roulette historic;
 
     @ManyToOne
-    @JoinColumn(name = "roulette_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "roulette_id", referencedColumnName = "id", nullable = true)
     private Roulette roulette;
 
     @Column(name = "popularity")
     private int popularity;
+
+    public Album(String name, String url, Integer totalTracks, String releaseDate, Roulette roulette) {
+        this.name = name;
+        this.url = url;
+        this.totalTracks = totalTracks;
+        this.releaseDate = releaseDate;
+        this.roulette = roulette;
+    }
+
 }
