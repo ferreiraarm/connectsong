@@ -1,7 +1,6 @@
 package com.amf.connectsong.model;
 
 import java.io.Serializable;
-import java.sql.Date;
 
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
@@ -33,7 +32,7 @@ public class Review implements Serializable {
     private String grade;
 
     @Column(name = "comment")
-    private Date comment;
+    private String comment;
 
     @Basic(optional = false)
     @ManyToOne
