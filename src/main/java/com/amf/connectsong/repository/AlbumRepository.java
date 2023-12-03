@@ -7,14 +7,13 @@ import org.springframework.stereotype.Repository;
 
 import com.amf.connectsong.model.Album;
 
-
-
 @Repository
 public interface AlbumRepository extends JpaRepository<Album, Long> {
 
-    
     List<Album> findAll();
-    Album findByNome(String nome);
+
+    Album findByName(String name);
+
     Album findById(long id);
-     
+
 }

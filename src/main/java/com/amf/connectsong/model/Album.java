@@ -25,7 +25,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Entity
 @Table(name = "album")
-public class Album implements Serializable{
+public class Album implements Serializable {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -61,12 +61,13 @@ public class Album implements Serializable{
     @Column(name = "popularity")
     private int popularity;
 
-    public Album(String name, String url, Integer totalTracks, String releaseDate, Roulette roulette) {
+    public Album(String name, String url, Integer totalTracks, String releaseDate, Roulette roulette, int popularity) {
         this.name = name;
         this.url = url;
         this.totalTracks = totalTracks;
         this.releaseDate = releaseDate;
         this.roulette = roulette;
+        this.popularity = popularity;
     }
 
 }

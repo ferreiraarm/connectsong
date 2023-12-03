@@ -17,19 +17,12 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 
-
-
-
-
-
-
 @RestController
 @RequestMapping("/api/album")
 public class AlbumController implements Serializable {
 
     @Autowired
     private AlbumRepository repAlbumObj;
-
 
     @Operation(summary = "Busca todos os  dados so album ", method = "GET")
 
@@ -41,10 +34,9 @@ public class AlbumController implements Serializable {
     })
     @GetMapping("/api/album")
     public List<Album> selecionarTodosOsAlbuns() {
-       return repAlbumObj.findAll();
+        return repAlbumObj.findAll();
 
     }
-
 
     @Operation(summary = "Busca dados de albuns por id", method = "GET")
 
@@ -58,8 +50,7 @@ public class AlbumController implements Serializable {
     public Album selecionarAlbumPorId(@PathVariable long id) {
         return repAlbumObj.findById(id);
     }
-   
-    
+
     @Operation(summary = "Busca dados de albuns por nome", method = "GET")
 
     @ApiResponses(value = {
@@ -68,11 +59,10 @@ public class AlbumController implements Serializable {
             @ApiResponse(responseCode = "400", description = "Parametros inválidos"),
             @ApiResponse(responseCode = "500", description = "Erro ao realizar busca dos dados"),
     })
-    @GetMapping("/api/album/{nome}")
-    public Album selecionarAlbumPorNome(@PathVariable String nome){
-    
-        return repAlbumObj.findByNome(nome);
-        
+    @GetMapping("/api/album/{name}")
+    public Album selecionarAlbumPorNome(@PathVariable String name) {
+
+        return repAlbumObj.findByName(name);
 
     }
 }
