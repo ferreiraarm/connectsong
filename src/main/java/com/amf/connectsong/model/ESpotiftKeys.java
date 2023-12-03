@@ -1,6 +1,8 @@
 package com.amf.connectsong.model;
 
-public enum ESpotiftKeys {
+import java.io.Serializable;
+
+public enum ESpotiftKeys implements Serializable{
     CLIENT_ID("4680b0b539be45f5ae13d2bcae7d2b0f"),
     CLIENT_SECRET("85f01fce6dcf4d62a175699ce55e5c45");
 

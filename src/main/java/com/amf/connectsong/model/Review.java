@@ -1,5 +1,6 @@
 package com.amf.connectsong.model;
 
+import java.io.Serializable;
 import java.sql.Date;
 
 import jakarta.persistence.Basic;
@@ -22,7 +23,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Entity
 @Table(name = "review")
-public class Review {
+public class Review implements Serializable {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)

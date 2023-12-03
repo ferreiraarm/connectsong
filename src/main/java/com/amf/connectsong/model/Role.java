@@ -1,5 +1,7 @@
 package com.amf.connectsong.model;
 
+import java.io.Serializable;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -15,7 +17,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "roles")
-public class Role {
+public class Role implements Serializable {
 
     @Id
     @Column(name = "id")

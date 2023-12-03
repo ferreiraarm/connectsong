@@ -1,6 +1,9 @@
 package com.amf.connectsong.model;
 
+import java.io.Serializable;
 import java.util.Date;
+
+import org.springframework.data.annotation.CreatedDate;
 
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
@@ -22,7 +25,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Entity
 @Table(name = "message")
-public class Message {
+public class Message implements Serializable{
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -31,6 +34,7 @@ public class Message {
     @Column(name = "message")
     private String message;
 
+    @CreatedDate
     @Column(name = "posted_time")
     private Date postedTime;
 

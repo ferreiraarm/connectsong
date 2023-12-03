@@ -1,5 +1,7 @@
 package com.amf.connectsong.model;
 
+import java.io.Serializable;
+
 import jakarta.persistence.Basic;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -21,7 +23,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Entity
 @Table(name = "user_address")
-public class UserAddress {
+public class UserAddress implements Serializable{
     @Id
     @Column(name = "id")
     @PrimaryKeyJoinColumn

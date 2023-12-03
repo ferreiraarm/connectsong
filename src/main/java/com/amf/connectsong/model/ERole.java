@@ -1,5 +1,7 @@
 package com.amf.connectsong.model;
 
-public enum ERole {
+import java.io.Serializable;
+
+public enum ERole implements Serializable{
     USER, ADMIN
 }

@@ -1,5 +1,6 @@
 package com.amf.connectsong.model;
 
+import java.io.Serializable;
 import java.util.Set;
 
 import jakarta.persistence.Basic;
@@ -23,7 +24,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Entity
 @Table(name = "roulette")
-public class Roulette {
+public class Roulette implements Serializable{
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)

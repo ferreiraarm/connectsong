@@ -1,5 +1,6 @@
 package com.amf.connectsong.model;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -28,7 +29,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Entity
 @Table(name = "users")
-public class User {
+public class User implements Serializable {
 
     public User(String name, String username, String email, String password) {
         this.username = username;
