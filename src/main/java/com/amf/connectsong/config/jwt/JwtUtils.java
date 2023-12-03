@@ -45,7 +45,7 @@ public class JwtUtils {
 
     public String getUserNameFromJwtToken(String token) {
         return Jwts.parserBuilder().setSigningKey(key()).build()
-                .parseClaimsJws(token).getBody().getSubject();
+                .parseClaimsJws(formatToken(token)).getBody().getSubject();
     }
 
     public boolean validateJwtToken(String authToken) {
@@ -63,5 +63,9 @@ public class JwtUtils {
         }
 
         return false;
+    }
+
+    public String formatToken(String token) {
+        return token.replace("Bearer ", "");
     }
 }
