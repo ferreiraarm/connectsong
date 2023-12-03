@@ -55,9 +55,6 @@ public class User implements Serializable {
     @Column(name = "email")
     private String email;
 
-    @Column(name = "phone_number")
-    private String phoneNumber;
-
     @Basic(optional = false)
     @Column(name = "password")
     private String password;
