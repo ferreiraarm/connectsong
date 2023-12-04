@@ -139,9 +139,25 @@ public class UserController {
         }
     }
 
+    @Operation(summary = "Busca de reviews", method = "GET")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Busca realizada com sucesso", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = ReviewVO.class)) }),
+            @ApiResponse(responseCode = "404", description = "Usuário não encontrado!"),
+            @ApiResponse(responseCode = "500", description = "Erro ao realizar busca dos dados"),
+    })
+    @GetMapping("/reviews/{username}")
+    public ResponseEntity<?> getReviewsByUsername(@PathVariable String username) {
+        try {
+            return userService.getReviewsByUsername(username);
+        } catch (Exception e) {
+            return exceptionHandler.returnException(e);
+        }
+    }
+
     @Operation(summary = "Atualização de foto do profile", method = "POST")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Atualização feita com sucesso!"), 
+            @ApiResponse(responseCode = "200", description = "Atualização feita com sucesso!"),
             @ApiResponse(responseCode = "400", description = "Usuário não encontrado!"),
             @ApiResponse(responseCode = "404", description = "Nome de usuário invalido!"),
             @ApiResponse(responseCode = "500", description = "Erro ao realizar busca dos dados"),

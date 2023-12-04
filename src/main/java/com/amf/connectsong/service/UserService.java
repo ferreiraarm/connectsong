@@ -193,6 +193,32 @@ public class UserService {
         return ResponseEntity.ok(returnReviews);
     }
 
+    public ResponseEntity<?> getReviewsByUsername(String username) {
+        Optional<User> currentUser = userRepository.findByUsername(username);
+
+        if (!currentUser.isPresent()) {
+            throw new RuntimeException("USER_NOT_FOUND");
+        }
+
+        Review[] reviews = currentUser.get().getReviews().toArray(Review[]::new);
+
+        ReviewVO[] returnReviews = new ReviewVO[reviews.length];
+
+        for (int i = 0; i < reviews.length; i++) {
+            ReviewVO reviewDTO = new ReviewVO(reviews[i]);
+            Link userLink = Link.of("http://localhost:8080/api/user/profile/" + reviews[i].getUser().getUsername())
+                    .withRel("user");
+            Link albumLink = Link.of("http://localhost:8080/api/album/" + reviews[i].getAlbum().getId())
+                    .withRel("album");
+            reviewDTO.add(userLink);
+            reviewDTO.add(albumLink);
+
+            returnReviews[i] = reviewDTO;
+        }
+
+        return ResponseEntity.ok(returnReviews);
+    }
+
     public String addProfilePicture(String token, MultipartFile file) {
         String filename = StringUtils.cleanPath(file.getOriginalFilename());
         if (filename.contains("..")) {
