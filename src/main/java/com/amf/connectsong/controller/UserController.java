@@ -12,15 +12,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.amf.connectsong.dto.AddressDTO;
+import com.amf.connectsong.dto.ArtistDTO;
 import com.amf.connectsong.dto.CreateReviewDTO;
+import com.amf.connectsong.dto.ProfileDTO;
+import com.amf.connectsong.dto.ReviewDTO;
 import com.amf.connectsong.dto.UpdateProfileDTO;
 import com.amf.connectsong.service.UserService;
 import com.amf.connectsong.utils.ExceptionHandler;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/user")
+@Tag(name = "ConnectSong User Controller")
 public class UserController {
     @Autowired
     ExceptionHandler exceptionHandler;
@@ -28,6 +38,13 @@ public class UserController {
     @Autowired
     UserService userService;
 
+    @Operation(summary = "Busca de profiles", method = "GET")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Busca realizada com sucesso", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = ProfileDTO.class)) }),
+            @ApiResponse(responseCode = "404", description = "Usuário não encontrado!"),
+            @ApiResponse(responseCode = "500", description = "Erro ao realizar busca dos dados"),
+    })
     @GetMapping("/profile")
     public ResponseEntity<?> getProfile(@RequestHeader("Authorization") String token) {
         try {
@@ -37,6 +54,13 @@ public class UserController {
         }
     }
 
+    @Operation(summary = "Atualização do profiles", method = "PUT")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Atualização realizada com sucesso", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = ProfileDTO.class)) }),
+            @ApiResponse(responseCode = "404", description = "Usuário não encontrado!"),
+            @ApiResponse(responseCode = "500", description = "Erro ao realizar busca dos dados"),
+    })
     @PutMapping("/profile")
     public ResponseEntity<?> updateProfile(@Valid @RequestBody UpdateProfileDTO profile,
             @RequestHeader("Authorization") String token) {
@@ -47,6 +71,13 @@ public class UserController {
         }
     }
 
+    @Operation(summary = "Atualização e adição de endereços", method = "POST")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Atualização realizada com sucesso", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = AddressDTO.class)) }),
+            @ApiResponse(responseCode = "404", description = "Usuário não encontrado!"),
+            @ApiResponse(responseCode = "500", description = "Erro ao realizar busca dos dados"),
+    })
     @PostMapping("/address")
     public ResponseEntity<?> addAddress(@Valid @RequestBody AddressDTO address,
             @RequestHeader("Authorization") String token) {
@@ -57,6 +88,13 @@ public class UserController {
         }
     }
 
+    @Operation(summary = "Busca de endereço", method = "GET")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Busca realizada com sucesso", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = AddressDTO.class)) }),
+            @ApiResponse(responseCode = "404", description = "Usuário ou endereço não encontrado!"),
+            @ApiResponse(responseCode = "500", description = "Erro ao realizar busca dos dados"),
+    })
     @GetMapping("/address")
     public ResponseEntity<?> getAddress(@RequestHeader("Authorization") String token) {
         try {
@@ -66,6 +104,13 @@ public class UserController {
         }
     }
 
+    @Operation(summary = "Atualização e adição de reviews de albuns por id", method = "POST")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Atualização feita ucesso", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = ReviewDTO.class)) }),
+            @ApiResponse(responseCode = "404", description = "Usuário ou Review ou album não encontrado!"),
+            @ApiResponse(responseCode = "500", description = "Erro ao realizar busca dos dados"),
+    })
     @PostMapping("/review/{album_id}")
     public ResponseEntity<?> addReview(@Valid @RequestBody CreateReviewDTO review,
             @RequestHeader("Authorization") String token, @PathVariable long album_id) {
@@ -76,6 +121,13 @@ public class UserController {
         }
     }
 
+    @Operation(summary = "Busca de reviews", method = "GET")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Busca realizada com sucesso", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = ReviewDTO.class)) }),
+            @ApiResponse(responseCode = "404", description = "Usuário ou Review não encontrado!"),
+            @ApiResponse(responseCode = "500", description = "Erro ao realizar busca dos dados"),
+    })
     @GetMapping("/reviews")
     public ResponseEntity<?> getReviews(@RequestHeader("Authorization") String token) {
         try {
