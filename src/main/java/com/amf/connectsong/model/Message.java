@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.Date;
 
 import org.hibernate.annotations.CreationTimestamp;
-import org.springframework.data.annotation.CreatedDate;
 
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;

@@ -14,10 +14,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.amf.connectsong.dto.MessageDTO;
+import com.amf.connectsong.dto.MessageVO;
 import com.amf.connectsong.service.MessageService;
 import com.amf.connectsong.utils.ExceptionHandler;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -36,11 +39,9 @@ public class MessageController implements Serializable {
 
     @Operation(summary = "Busca todas as menagens", method = "GET")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Busca realizada com sucesso"),
-            /* Colocar aqui o dot schema */
-            @ApiResponse(responseCode = "422", description = "Dados de requisição inválida"),
-            @ApiResponse(responseCode = "400", description = "Parametros inválidos"),
-            @ApiResponse(responseCode = "404", description = "Não encontrado"),
+            @ApiResponse(responseCode = "200", description = "Busca realizada com sucesso", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = MessageVO.class)) }),
+            @ApiResponse(responseCode = "404", description = "Usuário não encontrado"),
             @ApiResponse(responseCode = "500", description = "Erro ao realizar busca dos dados"),
     })
     @GetMapping("/{username}")
@@ -66,12 +67,10 @@ public class MessageController implements Serializable {
         }
     }
 
-    @Operation(summary = "deleta mensagens por id", method = "DELETE")
+    @Operation(summary = "Deleta mensagens por id", method = "DELETE")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Deletado"),
-            @ApiResponse(responseCode = "422", description = "Dados de requisição inválida"),
-            @ApiResponse(responseCode = "400", description = "Parametros inválidos"),
-            @ApiResponse(responseCode = "404", description = "Não encontrado"),
+            @ApiResponse(responseCode = "200", description = "Mensagem deletada!"),
+            @ApiResponse(responseCode = "404", description = "Mensagem não encontrada"),
             @ApiResponse(responseCode = "500", description = "Erro ao deletar"),
     })
     @DeleteMapping("/api/message/{id}")
