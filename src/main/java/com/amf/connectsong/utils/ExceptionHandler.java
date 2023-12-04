@@ -37,6 +37,12 @@ public class ExceptionHandler implements Serializable {
             case "USER_ADDRESS_NOT_FOUND":
                 return new ResponseEntity<>("User don't have address!", HttpStatus.NOT_FOUND);
 
+            case "FILENAME_IS_INVALID":
+                return new ResponseEntity<>("Insert a valid filename!", HttpStatus.BAD_REQUEST);
+
+            case "CANNOT_SAVE_FILE":
+                return new ResponseEntity<>("Insert a valid filename!", HttpStatus.INTERNAL_SERVER_ERROR);
+
             default:
                 break;
         }

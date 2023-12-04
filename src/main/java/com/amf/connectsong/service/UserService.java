@@ -1,11 +1,20 @@
 package com.amf.connectsong.service;
 
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Link;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.amf.connectsong.config.jwt.JwtUtils;
 import com.amf.connectsong.dto.AddressDTO;
@@ -180,6 +189,66 @@ public class UserService {
         }
 
         return ResponseEntity.ok(returnReviews);
+    }
+
+    public String addProfilePicture(String token, MultipartFile file) {
+        String filename = StringUtils.cleanPath(file.getOriginalFilename());
+        if (filename.contains("..")) {
+            throw new RuntimeException("FILENAME_IS_INVALID");
+        }
+
+        String fileExtension = getLastCharactersUntilDot(filename);
+        filename = "profile." + fileExtension;
+
+        Logger logger = LoggerFactory.getLogger(UserService.class);
+        logger.info("File extension: " + fileExtension);
+        logger.info("Filename: " + filename);
+
+        String username = jwtUtils.getUserNameFromJwtToken(token);
+
+        Optional<User> currentUser = userRepository.findByUsername(username);
+
+        if (!currentUser.isPresent()) {
+            throw new RuntimeException("USER_NOT_FOUND");
+        }
+
+        if (!currentUser.get().getPicturePath().isEmpty()) {
+            File oldFile = new File(currentUser.get().getPicturePath());
+            oldFile.delete();
+            logger.info("Old file deleted!");
+        }
+
+        File directory = new File("src/main/resources/static/images/profiles/" + currentUser.get().getUsername());
+
+        if (!directory.exists()) {
+            directory.mkdir();
+        }
+
+        Path rootLocation = Paths.get("src/main/resources/static/images/profiles/" + currentUser.get().getUsername());
+        Path destinationFile = rootLocation.resolve(filename);
+
+        try {
+            Files.copy(file.getInputStream(), destinationFile, StandardCopyOption.REPLACE_EXISTING);
+        } catch (Exception e) {
+            throw new RuntimeException("CANNOT_SAVE_FILE");
+        }
+
+        currentUser.get().setPicturePath(destinationFile.toString());
+        User savedUser = userRepository.save(currentUser.get());
+
+        logger.info("File saved!");
+        logger.info(savedUser.getPicturePath());
+
+        return filename;
+    }
+
+    public String getLastCharactersUntilDot(String input) {
+        int dotIndex = input.lastIndexOf('.');
+        if (dotIndex != -1) {
+            return input.substring(dotIndex + 1, input.length());
+        } else {
+            return input;
+        }
     }
 
 }

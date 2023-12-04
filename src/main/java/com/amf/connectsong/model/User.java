@@ -59,6 +59,10 @@ public class User implements Serializable {
     @Column(name = "password")
     private String password;
 
+    @Basic(optional = false)
+    @Column(name = "picture_path")
+    private String picturePath;
+
     @OneToMany(mappedBy = "user")
     private Set<Review> reviews;
 

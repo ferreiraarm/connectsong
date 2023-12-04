@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.amf.connectsong.dto.AddressDTO;
 import com.amf.connectsong.dto.CreateReviewDTO;
@@ -80,6 +82,18 @@ public class UserController {
     public ResponseEntity<?> getReviews(@RequestHeader("Authorization") String token) {
         try {
             return userService.getReviews(token);
+        } catch (Exception e) {
+            return exceptionHandler.returnException(e);
+        }
+    }
+
+    @PostMapping("/profile/picture")
+    public ResponseEntity<?> addProfilePicture(@RequestHeader("Authorization") String token,
+            @RequestParam("file") MultipartFile file) {
+        try {
+            String filename = userService.addProfilePicture(token, file);
+
+            return ResponseEntity.ok(filename);
         } catch (Exception e) {
             return exceptionHandler.returnException(e);
         }
