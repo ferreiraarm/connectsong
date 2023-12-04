@@ -19,6 +19,12 @@ public class ExceptionHandler implements Serializable {
             case "ROLE_NOT_FOUND":
                 return new ResponseEntity<>("Error: Role not found!", HttpStatus.NOT_FOUND);
 
+            case "PASSWORD_NOT_STRONG":
+                return new ResponseEntity<>("Error: Weak password!", HttpStatus.NOT_ACCEPTABLE);
+
+            case "INVALID_EMAIL":
+                return new ResponseEntity<>("Error: Invalid email!", HttpStatus.NOT_ACCEPTABLE);
+
             case "USER_NOT_FOUND":
                 return new ResponseEntity<>("Error: User not found!", HttpStatus.NOT_FOUND);
 

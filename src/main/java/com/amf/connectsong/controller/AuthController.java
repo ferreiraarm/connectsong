@@ -68,12 +68,9 @@ public class AuthController implements Serializable {
     @Operation(summary = "Cria usuário", method = "POST")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Upload de arquivo realizado com sucesso"),
-            @ApiResponse(responseCode = "422", description = "Dados de requisição inválida"),
-            @ApiResponse(responseCode = "400", description = "Parametros inválidos"),
-            @ApiResponse(responseCode = "401", description = "Erro de autenticação"),
-            @ApiResponse(responseCode = "403", description = " falha de arquivo ou permissão de acesso"),
-            @ApiResponse(responseCode = "404", description = "Not found"),
-            @ApiResponse(responseCode = "409", description = "Conflito na solicitação"),
+            @ApiResponse(responseCode = "406", description = "Email inválido ou senha fraca."),
+            @ApiResponse(responseCode = "404", description = "Role não encontrada."),
+            @ApiResponse(responseCode = "409", description = "Email ou usuário já cadastrado."),
             @ApiResponse(responseCode = "500", description = "Erro no servidor"),
 
     })

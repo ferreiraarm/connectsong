@@ -59,7 +59,7 @@ public class User implements Serializable {
     @Column(name = "password")
     private String password;
 
-    @Basic(optional = false)
+    @Basic(optional = true)
     @Column(name = "picture_path")
     private String picturePath;
 

@@ -73,6 +73,14 @@ public class AuthService {
             throw new RuntimeException("USERNAME_ALREADY_TAKEN");
         }
 
+        if (!isPasswordStrong(singUpRequest.getPassword())) {
+            throw new RuntimeException("PASSWORD_NOT_STRONG");
+        }
+
+        if (!isEmailValid(singUpRequest.getEmail())) {
+            throw new RuntimeException("INVALID_EMAIL");
+        }
+
         User user = new User(
                 singUpRequest.getName(),
                 singUpRequest.getUsername(),
@@ -106,6 +114,16 @@ public class AuthService {
         userRepository.save(user);
 
         return ResponseEntity.ok("User registered successfully!");
+    }
+
+    public boolean isPasswordStrong(String password) {
+        String regex = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$";
+        return password.matches(regex);
+    }
+
+    public boolean isEmailValid(String email) {
+        String regex = "^[A-Za-z0-9+_.-]+@(.+)$";
+        return email.matches(regex);
     }
 
 }

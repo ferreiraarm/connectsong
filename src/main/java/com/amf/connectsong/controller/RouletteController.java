@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.amf.connectsong.dto.AlbumVO;
-import com.amf.connectsong.dto.MessageDTO;
 import com.amf.connectsong.service.RouletteService;
 import com.amf.connectsong.utils.ExceptionHandler;
 
@@ -25,15 +24,15 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @RequestMapping("/api/roulette")
 @Tag(name = "ConnectSong Roulette Controller")
 public class RouletteController implements Serializable {
-    
+
     @Autowired
     private RouletteService rouletteService;
 
     @Operation(summary = "Gira a roleta para pegar um album aleatório", method = "GET")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Busca realizada com sucesso, album retornado.", content = {
-                @Content(mediaType = "application/json", schema = @Schema(implementation = AlbumVO.class)) }),
-           
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = AlbumVO.class)) }),
+
             @ApiResponse(responseCode = "404", description = "Usuário ou token ou roulette ou albuns não encontrados!"),
             @ApiResponse(responseCode = "500", description = "Erro ao realizar busca dos dados"),
     })
