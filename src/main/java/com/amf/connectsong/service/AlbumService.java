@@ -117,13 +117,13 @@ public class AlbumService {
         Set<ReviewDTO> reviews = new HashSet<ReviewDTO>();
         album.getReviews().forEach(reviewServer -> {
             ReviewDTO review = new ReviewDTO(reviewServer);
-            Link userLink = Link.of("http://localhost:8080/api/user/profile" + review.getUsername()).withRel("user");
+            Link userLink = Link.of("http://localhost:8080/api/user/profile/" + review.getUsername()).withRel("user");
             review.add(userLink);
 
             reviews.add(review);
         });
 
-        return ResponseEntity.ok(album.getReviews());
+        return ResponseEntity.ok(reviews);
     }
 
 }

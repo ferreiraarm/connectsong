@@ -23,7 +23,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Entity
 @Table(name = "user_address")
-public class UserAddress implements Serializable{
+public class UserAddress implements Serializable {
     @Id
     @Column(name = "id")
     @PrimaryKeyJoinColumn
@@ -35,7 +35,7 @@ public class UserAddress implements Serializable{
     @Column(name = "state")
     private String state;
     @Column(name = "postal_code")
-    private int postalCode;
+    private String postalCode;
     @Column(name = "country")
     private String country;
     @Column(name = "number")
@@ -47,4 +47,14 @@ public class UserAddress implements Serializable{
     @PrimaryKeyJoinColumn
     @OneToOne(mappedBy = "userAddress", cascade = CascadeType.ALL)
     private User user;
+
+    public UserAddress(String city, String state, String postalCode, String country, int number, String address,
+            User user) {
+        this.city = city;
+        this.state = state;
+        this.postalCode = postalCode;
+        this.country = country;
+        this.number = number;
+        this.address = address;
+    }
 }

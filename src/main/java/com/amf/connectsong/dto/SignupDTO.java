@@ -16,8 +16,6 @@ public class SignupDTO implements Serializable {
     @NotBlank
     private String username;
 
-    private String phoneNumber;
-
     @NotBlank
     private String password;
 
@@ -29,11 +27,10 @@ public class SignupDTO implements Serializable {
     public SignupDTO() {
     }
 
-    public SignupDTO(String name, String password, String username, String phoneNumber, String email,
+    public SignupDTO(String name, String password, String username, String email,
             Set<String> role) {
         this.name = name;
         this.username = username;
-        this.phoneNumber = phoneNumber;
         this.password = password;
         this.email = email;
         this.role = role;
