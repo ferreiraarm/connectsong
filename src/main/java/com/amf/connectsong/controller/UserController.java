@@ -142,6 +142,14 @@ public class UserController {
         }
     }
 
+    @Operation(summary = "Atualização de foto do profile", method = "POST")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Atualização feita com sucesso", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = UpdateProfileDTO.class)) }),
+            @ApiResponse(responseCode = "400", description = "Usuário não encontrado!"),
+            @ApiResponse(responseCode = "404", description = "Nome de usuário invalido!"),
+            @ApiResponse(responseCode = "500", description = "Erro ao realizar busca dos dados"),
+    })
     @PostMapping("/profile/picture")
     public ResponseEntity<?> addProfilePicture(@RequestHeader("Authorization") String token,
             @RequestParam("file") MultipartFile file) {
@@ -154,6 +162,13 @@ public class UserController {
         }
     }
 
+    @Operation(summary = "Busca de foto", method = "GET")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Busca realizada com sucesso", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = ProfileVO.class)) }),
+            @ApiResponse(responseCode = "404", description = "Usuário ou Review não encontrado!"),
+            @ApiResponse(responseCode = "500", description = "Erro ao realizar busca dos dados"),
+    })
     @GetMapping("/profile/picture")
     public ResponseEntity<?> addProfilePicture(@RequestHeader("Authorization") String token,
             HttpServletRequest request) {

@@ -90,7 +90,7 @@ public class MessageController implements Serializable {
 
     }
 
-    @Operation(summary = "deleta mensagens por id", method = "DELETE")
+    @Operation(summary = "Deleta mensagens por id", method = "DELETE")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Deletado"),           
             @ApiResponse(responseCode = "422", description = "Dados de requisição inválida"),
