@@ -28,10 +28,8 @@ public class RouletteController implements Serializable {
     @Operation(summary = "Gira a roleta para pegar um album aleatório", method = "GET")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Busca realizada com sucesso, album retornado."),
-            @ApiResponse(responseCode = "404", description = "Not found user!"),
-            @ApiResponse(responseCode = "404", description = "Not found token!"),
-            @ApiResponse(responseCode = "404", description = "Not found roulette!"),
-            @ApiResponse(responseCode = "404", description = "Not found albums!"),
+            /*Colocar aqui o dot schema */
+            @ApiResponse(responseCode = "404", description = "Usuário ou token ou roulette ou albuns não encontrados!"),
             @ApiResponse(responseCode = "500", description = "Erro ao realizar busca dos dados"),
     })
     @GetMapping("/spin")

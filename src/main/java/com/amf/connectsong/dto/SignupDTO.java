@@ -1,5 +1,6 @@
 package com.amf.connectsong.dto;
 
+import java.io.Serializable;
 import java.util.Set;
 
 import jakarta.validation.constraints.NotBlank;
@@ -8,7 +9,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class SignupDTO {
+public class SignupDTO implements Serializable {
     @NotBlank
     private String name;
 
