@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.amf.connectsong.config.jwt.JwtUtils;
-import com.amf.connectsong.dto.AlbumDTO;
+import com.amf.connectsong.dto.AlbumVO;
 import com.amf.connectsong.model.Album;
 import com.amf.connectsong.model.Roulette;
 import com.amf.connectsong.model.User;
@@ -32,7 +32,7 @@ public class RouletteService {
     @Autowired
     private JwtUtils jwtUtils;
 
-    public ResponseEntity<AlbumDTO> spinRoulette(String token) {
+    public ResponseEntity<AlbumVO> spinRoulette(String token) {
 
         if (token == null) {
             throw new RuntimeException("TOKEN_NOT_FOUND");
@@ -69,7 +69,7 @@ public class RouletteService {
             }
         }
 
-        AlbumDTO albumDTO = new AlbumDTO(selectAlbum);
+        AlbumVO albumDTO = new AlbumVO(selectAlbum);
         Link selfLink = Link.of("http://localhost:8080/api/album/" + selectAlbum.getId());
         albumDTO.add(selfLink);
 

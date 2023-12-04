@@ -20,9 +20,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.amf.connectsong.config.jwt.JwtUtils;
 import com.amf.connectsong.dto.AddressDTO;
-import com.amf.connectsong.dto.CreateReviewDTO;
-import com.amf.connectsong.dto.ProfileDTO;
 import com.amf.connectsong.dto.ReviewDTO;
+import com.amf.connectsong.dto.ProfileVO;
+import com.amf.connectsong.dto.ReviewVO;
 import com.amf.connectsong.dto.UpdateProfileDTO;
 import com.amf.connectsong.model.Album;
 import com.amf.connectsong.model.Review;
@@ -60,7 +60,7 @@ public class UserService {
             throw new RuntimeException("USER_NOT_FOUND");
         }
 
-        ProfileDTO profileDTO = new ProfileDTO(user.get().getName(), user.get().getUsername(), user.get().getEmail());
+        ProfileVO profileDTO = new ProfileVO(user.get().getName(), user.get().getUsername(), user.get().getEmail());
 
         return ResponseEntity.ok(profileDTO);
     }
@@ -137,7 +137,7 @@ public class UserService {
         return ResponseEntity.ok(addressDTO);
     }
 
-    public ResponseEntity<?> addReview(CreateReviewDTO reviewDTO, String token, long album_id) {
+    public ResponseEntity<?> addReview(ReviewDTO reviewDTO, String token, long album_id) {
         String username = jwtUtils.getUserNameFromJwtToken(token);
 
         Optional<User> currentUser = userRepository.findByUsername(username);
@@ -179,10 +179,10 @@ public class UserService {
 
         Review[] reviews = currentUser.get().getReviews().toArray(Review[]::new);
 
-        ReviewDTO[] returnReviews = new ReviewDTO[reviews.length];
+        ReviewVO[] returnReviews = new ReviewVO[reviews.length];
 
         for (int i = 0; i < reviews.length; i++) {
-            ReviewDTO reviewDTO = new ReviewDTO(reviews[i]);
+            ReviewVO reviewDTO = new ReviewVO(reviews[i]);
             Link userLink = Link.of("http://localhost:8080/api/user/profile/" + reviews[i].getUser().getUsername())
                     .withRel("user");
             reviewDTO.add(userLink);

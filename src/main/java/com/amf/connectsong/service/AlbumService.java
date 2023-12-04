@@ -10,9 +10,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.amf.connectsong.config.jwt.JwtUtils;
-import com.amf.connectsong.dto.AlbumDTO;
+import com.amf.connectsong.dto.AlbumVO;
 import com.amf.connectsong.dto.ArtistDTO;
-import com.amf.connectsong.dto.ReviewDTO;
+import com.amf.connectsong.dto.ReviewVO;
 import com.amf.connectsong.model.Album;
 import com.amf.connectsong.model.User;
 import com.amf.connectsong.repository.AlbumRepository;
@@ -48,10 +48,10 @@ public class AlbumService {
             throw new RuntimeException("NO_ALBUMS_FOUND");
         }
 
-        Set<AlbumDTO> albumDTOs = new HashSet<AlbumDTO>();
+        Set<AlbumVO> albumDTOs = new HashSet<AlbumVO>();
 
         for (Album album : albums) {
-            AlbumDTO albumDTO = new AlbumDTO(album);
+            AlbumVO albumDTO = new AlbumVO(album);
 
             Link selfLink = Link.of("http://localhost:8080/api/album/" + album.getId());
             albumDTO.add(selfLink);
@@ -76,7 +76,7 @@ public class AlbumService {
             throw new RuntimeException("NOT_FOUND_ALBUM");
         }
 
-        AlbumDTO albumDTO = new AlbumDTO(album);
+        AlbumVO albumDTO = new AlbumVO(album);
 
         Link selfLink = Link.of("http://localhost:8080/api/album/" + album.getId());
         albumDTO.add(selfLink);
@@ -114,9 +114,9 @@ public class AlbumService {
             throw new RuntimeException("NOT_FOUND_ALBUM");
         }
 
-        Set<ReviewDTO> reviews = new HashSet<ReviewDTO>();
+        Set<ReviewVO> reviews = new HashSet<ReviewVO>();
         album.getReviews().forEach(reviewServer -> {
-            ReviewDTO review = new ReviewDTO(reviewServer);
+            ReviewVO review = new ReviewVO(reviewServer);
             Link userLink = Link.of("http://localhost:8080/api/user/profile/" + review.getUsername()).withRel("user");
             review.add(userLink);
 

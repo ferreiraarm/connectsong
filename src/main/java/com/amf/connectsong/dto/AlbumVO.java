@@ -14,7 +14,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class AlbumDTO extends RepresentationModel<AlbumDTO> implements Serializable {
+public class AlbumVO extends RepresentationModel<AlbumVO> implements Serializable {
     private int id;
     private String name;
     private String url;
@@ -22,7 +22,7 @@ public class AlbumDTO extends RepresentationModel<AlbumDTO> implements Serializa
     private String releaseDate;
     private int popularity;
 
-    public AlbumDTO(Album album) {
+    public AlbumVO(Album album) {
         this.id = album.getId();
         this.name = album.getName();
         this.url = album.getUrl();

@@ -9,13 +9,13 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ProfileDTO extends RepresentationModel<ProfileDTO> implements Serializable {
+public class ProfileVO extends RepresentationModel<ProfileVO> implements Serializable {
     private String name;
     private String username;
     private String email;
     private String profilePicture;
 
-    public ProfileDTO(String name, String username, String email) {
+    public ProfileVO(String name, String username, String email) {
         this.name = name;
         this.username = username;
         this.email = email;
