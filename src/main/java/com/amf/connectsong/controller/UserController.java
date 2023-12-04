@@ -61,8 +61,7 @@ public class UserController {
 
     @Operation(summary = "Atualização do profiles", method = "PUT")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Atualização realizada com sucesso", content = {
-                    @Content(mediaType = "application/json", schema = @Schema(implementation = ProfileVO.class)) }),
+            @ApiResponse(responseCode = "200", description = "Atualização realizada com sucesso"),
             @ApiResponse(responseCode = "404", description = "Usuário não encontrado!"),
             @ApiResponse(responseCode = "500", description = "Erro ao realizar busca dos dados"),
     })
@@ -78,8 +77,7 @@ public class UserController {
 
     @Operation(summary = "Atualização e adição de endereços", method = "POST")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Atualização realizada com sucesso", content = {
-                    @Content(mediaType = "application/json", schema = @Schema(implementation = AddressDTO.class)) }),
+            @ApiResponse(responseCode = "200", description = "Atualização realizada com sucesso"),
             @ApiResponse(responseCode = "404", description = "Usuário não encontrado!"),
             @ApiResponse(responseCode = "500", description = "Erro ao realizar busca dos dados"),
     })
@@ -111,8 +109,7 @@ public class UserController {
 
     @Operation(summary = "Atualização e adição de reviews de albuns por id", method = "POST")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Atualização feita ucesso", content = {
-                    @Content(mediaType = "application/json", schema = @Schema(implementation = ReviewVO.class)) }),
+            @ApiResponse(responseCode = "200", description = "Atualização feita ucesso"),
             @ApiResponse(responseCode = "404", description = "Usuário ou Review ou album não encontrado!"),
             @ApiResponse(responseCode = "500", description = "Erro ao realizar busca dos dados"),
     })
@@ -144,8 +141,7 @@ public class UserController {
 
     @Operation(summary = "Atualização de foto do profile", method = "POST")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Atualização feita com sucesso", content = {
-                    @Content(mediaType = "application/json", schema = @Schema(implementation = UpdateProfileDTO.class)) }),
+            @ApiResponse(responseCode = "200", description = "Atualização feita com sucesso!"), 
             @ApiResponse(responseCode = "400", description = "Usuário não encontrado!"),
             @ApiResponse(responseCode = "404", description = "Nome de usuário invalido!"),
             @ApiResponse(responseCode = "500", description = "Erro ao realizar busca dos dados"),

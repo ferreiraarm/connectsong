@@ -32,7 +32,6 @@ public class AuthController implements Serializable {
     @Operation(summary = "Realiza operações de login", method = "POST")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Upload de arquivo realizado com sucesso"),
-            /*Colocar aqui o dot schema */
             @ApiResponse(responseCode = "422", description = "Dados de requisição inválida"),
             @ApiResponse(responseCode = "400", description = "Parametros inválidos"),
             @ApiResponse(responseCode = "403", description = " falha de arquivo ou permissão de acesso"),
@@ -69,7 +68,6 @@ public class AuthController implements Serializable {
     @Operation(summary = "Cria usuário", method = "POST")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Upload de arquivo realizado com sucesso"),
-            /*Colocar aqui o DTO schema */
             @ApiResponse(responseCode = "422", description = "Dados de requisição inválida"),
             @ApiResponse(responseCode = "400", description = "Parametros inválidos"),
             @ApiResponse(responseCode = "401", description = "Erro de autenticação"),

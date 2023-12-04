@@ -45,8 +45,8 @@ public class MessageController implements Serializable {
     @Operation(summary = "Busca todas as menagens", method = "GET")
 
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Busca realizada com sucesso"),
-            /* Colocar aqui o dot schema */
+            @ApiResponse(responseCode = "200", description = "Busca realizada com sucesso", content = {
+                @Content(mediaType = "application/json", schema = @Schema(implementation = MessageDTO.class)) }),
             @ApiResponse(responseCode = "422", description = "Dados de requisição inválida"),
             @ApiResponse(responseCode = "400", description = "Parametros inválidos"),
             @ApiResponse(responseCode = "404", description = "Não encontrado"),
@@ -73,8 +73,7 @@ public class MessageController implements Serializable {
 
     @Operation(summary = "Envia mensagens", method = "POST")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Busca realizada com sucesso", content = {
-                @Content(mediaType = "application/json", schema = @Schema(implementation = MessageDTO.class)) }),            
+            @ApiResponse(responseCode = "200", description = "Busca realizada com sucesso"),            
             @ApiResponse(responseCode = "422", description = "Dados de requisição inválida"),
             @ApiResponse(responseCode = "400", description = "Parametros inválidos"),
             @ApiResponse(responseCode = "500", description = "Erro ao realizar busca dos dados"),
