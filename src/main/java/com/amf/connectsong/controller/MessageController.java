@@ -37,7 +37,7 @@ public class MessageController implements Serializable {
     @Autowired
     private ExceptionHandler exceptionHandler;
 
-    @Operation(summary = "Busca todas as menagens", method = "GET")
+    @Operation(summary = "Busca todas as mensagens", method = "GET")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Busca realizada com sucesso", content = {
                     @Content(mediaType = "application/json", schema = @Schema(implementation = MessageVO.class)) }),
@@ -53,7 +53,7 @@ public class MessageController implements Serializable {
     @Operation(summary = "Envia mensagem para um usuário", method = "POST")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Mensagem enviada com sucesso."),
-            @ApiResponse(responseCode = "404", description = "USER_NOT_FOUND"),
+            @ApiResponse(responseCode = "404", description = "Usuário não encontrado!"),
             @ApiResponse(responseCode = "500", description = "Erro ao realizar busca dos dados"),
     })
     @PostMapping("/save/{username}")
