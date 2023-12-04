@@ -1,5 +1,7 @@
 package com.amf.connectsong.dto;
 
+import java.io.Serializable;
+
 import com.amf.connectsong.model.Message;
 
 import lombok.Getter;
@@ -7,7 +9,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class MessageVO {
+public class MessageVO implements Serializable {
     private int id;
     private String message;
     private String postedTime;
