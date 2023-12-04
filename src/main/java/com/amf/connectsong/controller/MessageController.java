@@ -19,6 +19,8 @@ import com.amf.connectsong.repository.MessageRepository;
 import com.amf.connectsong.service.MessageService;
 import com.amf.connectsong.utils.ExceptionHandler;
 
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -56,10 +58,9 @@ public class MessageController implements Serializable {
     }
 
     @Operation(summary = "Busca dados de mensagens por id", method = "GET")
-
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Busca realizada com sucesso"),
-            /* Colocar aqui o dto schema */
+            @ApiResponse(responseCode = "200", description = "Busca realizada com sucesso", content = {
+                @Content(mediaType = "application/json", schema = @Schema(implementation = MessageDTO.class)) }),
             @ApiResponse(responseCode = "422", description = "Dados de requisição inválida"),
             @ApiResponse(responseCode = "400", description = "Parametros inválidos"),
             @ApiResponse(responseCode = "404", description = "Não encontrado"),
@@ -70,6 +71,14 @@ public class MessageController implements Serializable {
         return repMessageObj.findById(id);
     }
 
+    @Operation(summary = "Envia mensagens", method = "POST")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Busca realizada com sucesso", content = {
+                @Content(mediaType = "application/json", schema = @Schema(implementation = MessageDTO.class)) }),            
+            @ApiResponse(responseCode = "422", description = "Dados de requisição inválida"),
+            @ApiResponse(responseCode = "400", description = "Parametros inválidos"),
+            @ApiResponse(responseCode = "500", description = "Erro ao realizar busca dos dados"),
+    })
     @PostMapping("/api/message")
     public ResponseEntity<?> sendMessage(@Valid @RequestBody MessageDTO message,
             @RequestHeader("Authorization") String token) {
@@ -83,8 +92,7 @@ public class MessageController implements Serializable {
 
     @Operation(summary = "deleta mensagens por id", method = "DELETE")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Deletado"),
-            /* Colocar aqui o dot schema */
+            @ApiResponse(responseCode = "200", description = "Deletado"),           
             @ApiResponse(responseCode = "422", description = "Dados de requisição inválida"),
             @ApiResponse(responseCode = "400", description = "Parametros inválidos"),
             @ApiResponse(responseCode = "404", description = "Não encontrado"),
