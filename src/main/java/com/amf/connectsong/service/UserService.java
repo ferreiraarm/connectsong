@@ -10,6 +10,8 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.hateoas.Link;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -248,6 +250,34 @@ public class UserService {
             return input.substring(dotIndex + 1, input.length());
         } else {
             return input;
+        }
+    }
+
+    public Resource getProfilePicture(String token) {
+        String username = jwtUtils.getUserNameFromJwtToken(token);
+
+        Optional<User> currentUser = userRepository.findByUsername(username);
+
+        if (!currentUser.isPresent()) {
+            throw new RuntimeException("USER_NOT_FOUND");
+        }
+
+        Path rootLocation = Paths.get("src/main/resources/static/images/profiles/" + currentUser.get().getUsername());
+        String filename = "profile." + getLastCharactersUntilDot(currentUser.get().getPicturePath());
+        Path filePath = rootLocation.resolve(filename).normalize();
+
+        Resource resource;
+
+        try {
+            resource = new UrlResource(filePath.toUri());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        if (resource.exists() || resource.isReadable()) {
+            return resource;
+        } else {
+            throw new RuntimeException("CANNOT_READ_FILE");
         }
     }
 
