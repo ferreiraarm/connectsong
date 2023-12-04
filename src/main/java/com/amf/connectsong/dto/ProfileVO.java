@@ -13,7 +13,6 @@ public class ProfileVO extends RepresentationModel<ProfileVO> implements Seriali
     private String name;
     private String username;
     private String email;
-    private String profilePicture;
 
     public ProfileVO(String name, String username, String email) {
         this.name = name;
