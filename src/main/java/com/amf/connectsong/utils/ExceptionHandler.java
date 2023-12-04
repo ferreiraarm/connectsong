@@ -1,11 +1,13 @@
 package com.amf.connectsong.utils;
 
+import java.io.Serializable;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ExceptionHandler {
+public class ExceptionHandler implements Serializable {
     public ResponseEntity<?> returnException(Exception e) {
         switch (e.getMessage()) {
             case "EMAIL_ALREADY_TAKEN":
@@ -32,10 +34,13 @@ public class ExceptionHandler {
             case "NOT_FOUND_ALBUM":
                 return new ResponseEntity<>("Album not found!", HttpStatus.NOT_FOUND);
 
+            case "USER_ADDRESS_NOT_FOUND":
+                return new ResponseEntity<>("User don't have address!", HttpStatus.NOT_FOUND);
+
             default:
                 break;
         }
 
-        return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(e.getStackTrace(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

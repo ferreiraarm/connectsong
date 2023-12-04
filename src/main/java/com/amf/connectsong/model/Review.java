@@ -29,7 +29,7 @@ public class Review implements Serializable {
     private int id;
 
     @Column(name = "grade")
-    private String grade;
+    private int grade;
 
     @Column(name = "comment")
     private String comment;
@@ -43,4 +43,11 @@ public class Review implements Serializable {
     @ManyToOne
     @JoinColumn(name = "album_id", referencedColumnName = "id", nullable = false)
     private Album album;
+
+    public Review(int grade, String comment, User user, Album album) {
+        this.grade = grade;
+        this.comment = comment;
+        this.user = user;
+        this.album = album;
+    }
 }

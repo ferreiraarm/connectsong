@@ -14,8 +14,8 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class ReviewDTO extends RepresentationModel<ReviewDTO> implements Serializable {
-    private int id;
-    private String grade;
+    private long id;
+    private int grade;
     private String comment;
     private String username;
     private String userFullname;
