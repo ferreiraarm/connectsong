@@ -3,6 +3,7 @@ package com.amf.connectsong.model;
 import java.io.Serializable;
 import java.util.Date;
 
+import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.data.annotation.CreatedDate;
 
 import jakarta.persistence.Basic;
@@ -34,7 +35,7 @@ public class Message implements Serializable {
     @Column(name = "message")
     private String message;
 
-    @CreatedDate
+    @CreationTimestamp
     @Column(name = "posted_time")
     private Date postedTime;
 
