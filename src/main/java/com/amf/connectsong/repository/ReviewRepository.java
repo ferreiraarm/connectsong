@@ -8,4 +8,6 @@ import com.amf.connectsong.model.User;
 
 public interface ReviewRepository extends JpaRepository<Review, Long> {
     Review findByUserAndAlbum(User user, Album album);
+
+    Review[] findAllByUser(User user);
 }

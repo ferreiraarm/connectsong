@@ -72,7 +72,16 @@ public class UserController {
         try {
             return userService.addReview(review, token, album_id);
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(e.getStackTrace());
+            return exceptionHandler.returnException(e);
+        }
+    }
+
+    @GetMapping("/reviews")
+    public ResponseEntity<?> getReviews(@RequestHeader("Authorization") String token) {
+        try {
+            return userService.getReviews(token);
+        } catch (Exception e) {
+            return exceptionHandler.returnException(e);
         }
     }
 
