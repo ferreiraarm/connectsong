@@ -73,7 +73,7 @@ public class MessageController implements Serializable {
             @ApiResponse(responseCode = "404", description = "Mensagem não encontrada"),
             @ApiResponse(responseCode = "500", description = "Erro ao deletar"),
     })
-    @DeleteMapping("/api/message/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deleteMessage(@PathVariable int id, @RequestHeader("Authorization") String token) {
         try {
             return messageService.deleteMessage(id, token);

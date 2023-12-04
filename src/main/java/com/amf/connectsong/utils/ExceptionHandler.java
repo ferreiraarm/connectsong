@@ -25,6 +25,9 @@ public class ExceptionHandler implements Serializable {
             case "NO_ALBUMS_FOUND":
                 return new ResponseEntity<>("Error: Album not found!", HttpStatus.NOT_FOUND);
 
+            case "ALBUM_NOT_FOUND":
+                return new ResponseEntity<>("Error: Album not found!", HttpStatus.NOT_FOUND);
+
             case "TOKEN_NOT_FOUND":
                 return new ResponseEntity<>("Token not found!", HttpStatus.NOT_FOUND);
 
@@ -41,7 +44,13 @@ public class ExceptionHandler implements Serializable {
                 return new ResponseEntity<>("Insert a valid filename!", HttpStatus.BAD_REQUEST);
 
             case "CANNOT_SAVE_FILE":
-                return new ResponseEntity<>("Insert a valid filename!", HttpStatus.INTERNAL_SERVER_ERROR);
+                return new ResponseEntity<>("Error saving this file!", HttpStatus.INTERNAL_SERVER_ERROR);
+
+            case "CANNOT_READ_FILE":
+                return new ResponseEntity<>("Error reading this file!", HttpStatus.INTERNAL_SERVER_ERROR);
+
+            case "MESSAGE_NOT_FOUND":
+                return new ResponseEntity<>("Message not found!", HttpStatus.NOT_FOUND);
 
             default:
                 break;
